@@ -1,5 +1,6 @@
 package com.onb.otp.persistence.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -18,8 +19,24 @@ public class OneTimePasswordDaoTest {
 	private OneTimePasswordDaoBase dao;
 	
 	@Test
-	public void testLoadTitle() throws Exception {
+	public void save() {
+		OneTimePassword password = new OneTimePassword("password");
+		dao.save(password);
+	}
+	
+	@Test
+	public void getById() {
         OneTimePassword password = dao.getById(1L);
         assertNotNull(password);
     }
+	
+	@Test
+	public void update() {
+		OneTimePassword password = dao.getById(1L);
+		password.setCode("new password");
+		dao.update(password);
+		
+		OneTimePassword newPassword = dao.getById(1L);
+		assertEquals("new password", newPassword.getCode());
+	}
 }
