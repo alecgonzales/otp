@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="ONE_TIME_PASSWORD")
+@Table(name="one_time_password")
 public class OneTimePassword {
 	@Id
 	@Column(name="ID")
@@ -18,6 +18,12 @@ public class OneTimePassword {
 	@Column(name="CODE")
 	private String code;
 
+	public OneTimePassword() {}
+	
+	public OneTimePassword(String code) {
+		this.code = code;
+	}
+	
 	public Long getId() {
 		return id;
 	}
