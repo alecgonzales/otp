@@ -18,14 +18,17 @@
 				<configuration>
 					<webXml>webapp/WEB-INF/web.xml</webXml>
 				</configuration>
-
 				<version>2.2</version>
 			</plugin>
 		</plugins>
 	</build>
 
-
 	<dependencies>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.1</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
@@ -81,11 +84,5 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.20</version>
 		</dependency>
-	    <dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.1</version>
-		</dependency>
-
 	</dependencies>
 </project>
