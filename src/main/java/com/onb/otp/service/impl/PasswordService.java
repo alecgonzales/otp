@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
-import com.onb.otp.service.base.PasswordService;
+import com.onb.otp.service.base.PasswordServiceBase;
 
 @Service
-public class PasswordServiceImpl implements PasswordService {
+public class PasswordService implements PasswordServiceBase {
 	
 	private static final int LIST_SIZE = 100;
 

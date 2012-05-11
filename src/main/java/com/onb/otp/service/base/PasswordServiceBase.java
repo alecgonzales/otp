@@ -5,6 +5,6 @@ import java.util.List;
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
 
-public interface PasswordService {
+public interface PasswordServiceBase {
 	public OneTimePasswordList generatePasswordList();
 }

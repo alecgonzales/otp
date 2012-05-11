@@ -6,13 +6,13 @@ import org.junit.Test;
 
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
-import com.onb.otp.service.base.PasswordService;
+import com.onb.otp.service.base.PasswordServiceBase;
 
-public class PasswordServiceImplTest {
+public class PasswordServiceTest {
 
 	@Test
 	public void generatePasswordList() {
-		PasswordService passwordService = new PasswordServiceImpl();
+		PasswordServiceBase passwordService = new PasswordService();
 		OneTimePasswordList passwordList = passwordService.generatePasswordList();
 		
 		assertNotNull(passwordList);
