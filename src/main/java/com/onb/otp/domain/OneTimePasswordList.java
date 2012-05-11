@@ -14,11 +14,11 @@ import javax.persistence.Table;
 @Table(name="one_time_password_list")
 public class OneTimePasswordList {
 	@Id
-	@Column(name="ID")
+	@Column(name="id")
 	@GeneratedValue
 	private Long id;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "one_time_password_list")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "passwordList")
 	public Set<OneTimePassword> passwords;
 
 	public Long getId() {
