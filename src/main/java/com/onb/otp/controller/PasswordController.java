@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.service.impl.PasswordService;
 
 @Controller
@@ -14,7 +15,7 @@ public class PasswordController {
 	PasswordService passwordService;
 	
 	@RequestMapping(value="/create/otp-list", method=RequestMethod.GET) 
-	public void generateOtp() {
-		System.out.println("weh");
+	public OneTimePasswordList generateOtp() {
+		return passwordService.generatePasswordList();
 	}
 }
