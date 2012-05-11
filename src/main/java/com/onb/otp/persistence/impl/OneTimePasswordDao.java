@@ -1,24 +1,20 @@
 package com.onb.otp.persistence.impl;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.onb.otp.domain.OneTimePassword;
+import com.onb.otp.persistence.base.BaseDao;
 import com.onb.otp.persistence.base.OneTimePasswordDaoBase;
 
 @Repository
-public class OneTimePasswordDao implements OneTimePasswordDaoBase {
-	private SessionFactory sessionFactory;
-	
+@Transactional
+public class OneTimePasswordDao extends BaseDao implements OneTimePasswordDaoBase {
 	@Autowired
 	public OneTimePasswordDao(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
-	private Session currentSession() {
-		return sessionFactory.getCurrentSession();
+		super(sessionFactory);
 	}
 	
 	@Override
