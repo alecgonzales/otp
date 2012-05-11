@@ -5,13 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.onb.otp.service.impl.PasswordServiceImpl;
+import com.onb.otp.service.impl.PasswordService;
 
 @Controller
 public class PasswordController {
 	
 	@Autowired
-	PasswordServiceImpl passwordService;
+	PasswordService passwordService;
 	
 	@RequestMapping(value="/create/otp-list", method=RequestMethod.GET) 
 	public void generateOtp() {
