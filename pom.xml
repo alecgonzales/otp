@@ -10,6 +10,21 @@
 
 	<name>One-Time Password</name>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+
+				<version>2.2</version>
+			</plugin>
+		</plugins>
+	</build>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
