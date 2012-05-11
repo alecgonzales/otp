@@ -21,4 +21,14 @@
 		</property>
 	</bean>
 	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="mysqlDataSource" />
+		<property name="packagesToScan" value="com.onb.otp.domain"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
+			</props>
+		</property>
+	</bean>
+	
 </beans>
