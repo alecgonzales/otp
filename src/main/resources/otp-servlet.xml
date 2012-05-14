@@ -39,6 +39,7 @@
 		<property name="packagesToScan" value="com.onb.otp.domain"/>
 		<property name="hibernateProperties">
 			<props>
+			    <prop key="generateDdl">true</prop>
 				<prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
 			</props>
 		</property>
