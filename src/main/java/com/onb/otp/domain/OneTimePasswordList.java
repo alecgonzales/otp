@@ -1,5 +1,6 @@
 package com.onb.otp.domain;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -32,6 +33,11 @@ public class OneTimePasswordList {
 	@OneToOne
 	private User user;
 	
+	@Column(name="expires")
+	private Date expires;
+	
+	@Column(name="size")
+	private int size;
 
 	public Long getId() {
 		return id;
@@ -53,5 +59,19 @@ public class OneTimePasswordList {
 	@XmlElement
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public Date getExpires() {
+		return expires;
+	}
+	@XmlElement
+	public void setExpires(Date expires) {
+		this.expires = expires;
+	}
+	public int getSize() {
+		return size;
+	}
+	@XmlElement
+	public void setSize(int size) {
+		this.size = size;
 	}
 }
