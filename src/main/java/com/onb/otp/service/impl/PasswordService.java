@@ -19,6 +19,10 @@ public class PasswordService implements PasswordServiceBase {
 	@Autowired
 	private OneTimePasswordListDaoBase passwordListDao;
 
+	/**
+	 * Generates a list of one time passwords.
+	 * @return list of one time passwords
+	 */
 	public OneTimePasswordList generatePasswordList() {
 		OneTimePasswordList passwordList = new OneTimePasswordList();
 		passwordList.setPasswords(generatePasswords());
