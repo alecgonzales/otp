@@ -10,10 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+@XmlRootElement(name = "one_time_password_list")
 @Entity
 @Table(name="one_time_password_list")
 public class OneTimePasswordList {
@@ -33,18 +36,21 @@ public class OneTimePasswordList {
 	public Long getId() {
 		return id;
 	}
+	@XmlElement
 	public void setId(Long id) {
 		this.id = id;
 	}
 	public Set<OneTimePassword> getPasswords() {
 		return passwords;
 	}
+	@XmlElement
 	public void setPasswords(Set<OneTimePassword> passwords) {
 		this.passwords = passwords;
 	}
 	public User getUser() {
 		return user;
 	}
+	@XmlElement
 	public void setUser(User user) {
 		this.user = user;
 	}

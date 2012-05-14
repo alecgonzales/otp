@@ -29,8 +29,24 @@
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="mediaTypes">
 			<map>
-				<entry key="xml" value="text/xml" />
+				<entry key="xml" value="application/xml" />
 			</map>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- JAXB XML View -->
+			  <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+				<constructor-arg>
+					<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+					   <property name="classesToBeBound">
+						<list>
+						   <value>com.onb.otp.domain.OneTimePasswordList</value>
+						</list>
+					   </property>
+					</bean>
+				</constructor-arg>
+			  </bean>
+			</list>
 		</property>
 	</bean>
 	
