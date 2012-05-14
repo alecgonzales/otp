@@ -14,6 +14,7 @@
 <!ATTLIST one_time_password_list
 	id CDATA #REQUIRED
 	user_id CDATA #REQUIRED
+	size CDATA #REQUIRED
 >
 
 <!ELEMENT one_time_password EMPTY>
