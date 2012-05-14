@@ -1,0 +1,26 @@
+<!ELEMENT dataset (
+	user*,
+    one_time_password_list*,
+    one_time_password*
+    )>
+    
+<!ELEMENT user EMPTY>
+<!ATTLIST user
+	id CDATA #REQUIRED
+	username CDATA #REQUIRED
+>
+
+<!ELEMENT one_time_password_list EMPTY>
+<!ATTLIST one_time_password_list
+	id CDATA #REQUIRED
+	user_id CDATA #REQUIRED
+>
+
+<!ELEMENT one_time_password EMPTY>
+<!ATTLIST one_time_password
+	id CDATA #REQUIRED
+	code  CDATA #REQUIRED
+	password_list_id  CDATA #REQUIRED
+>
+
+

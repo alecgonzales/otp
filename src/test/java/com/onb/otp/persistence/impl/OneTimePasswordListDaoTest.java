@@ -21,15 +21,19 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.onb.otp.domain.OneTimePassword;
-import com.onb.otp.persistence.base.OneTimePasswordDaoBase;
+import com.onb.otp.domain.OneTimePasswordList;
+import com.onb.otp.domain.User;
+import com.onb.otp.persistence.base.OneTimePasswordListDaoBase;
+import com.onb.otp.persistence.base.UserDaoBase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/applicationContext.xml", "/otp-servlet.xml"})
-public class OneTimePasswordDaoTest {
+public class OneTimePasswordListDaoTest {
 	private static final String DATA_SET_XML = "./src/test/resources/dataSet.xml";
 	@Autowired
-	private OneTimePasswordDaoBase dao;
+	private OneTimePasswordListDaoBase dao;
+	@Autowired
+	private UserDaoBase userDao;
 	@Autowired
 	DataSource dataSource;
 	
@@ -45,25 +49,28 @@ public class OneTimePasswordDaoTest {
             DataSourceUtils.releaseConnection(con, dataSource);
         }
 	}
+	
 	@Test
 	public void save() {
-		OneTimePassword password = new OneTimePassword("password");
-		dao.save(password);
+		OneTimePasswordList passwordList = new OneTimePasswordList();
+		dao.save(passwordList);
 	}
 	
 	@Test
 	public void getById() {
-        OneTimePassword password = dao.getById(1L);
-        assertNotNull(password);
+        OneTimePasswordList passwordList = dao.getById(1L);
+        assertNotNull(passwordList);
     }
 	
 	@Test
 	public void update() {
-		OneTimePassword password = dao.getById(1L);
-		password.setCode("new password");
-		dao.update(password);
+		User user = userDao.getById(2L);
 		
-		OneTimePassword newPassword = dao.getById(1L);
-		assertEquals("new password", newPassword.getCode());
+		OneTimePasswordList passwordList = dao.getById(1L);
+		passwordList.setUser(user);
+		dao.update(passwordList);
+		
+		OneTimePasswordList newPasswordList = dao.getById(1L);
+		assertEquals(user.getUsername(), newPasswordList.getUser().getUsername());
 	}
 }
