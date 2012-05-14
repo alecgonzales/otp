@@ -15,13 +15,14 @@ import com.onb.otp.service.base.PasswordServiceBase;
 @Service
 public class PasswordService implements PasswordServiceBase {
 	
-	private static final int LIST_SIZE = 100;
+	private static final int LIST_SIZE = 50;
 	@Autowired
 	private OneTimePasswordListDaoBase passwordListDao;
 
 	public OneTimePasswordList generatePasswordList() {
 		OneTimePasswordList passwordList = new OneTimePasswordList();
 		passwordList.setPasswords(generatePasswords());
+		passwordList.setSize(LIST_SIZE);
 		passwordListDao.save(passwordList);
 		return passwordList;
 	}
