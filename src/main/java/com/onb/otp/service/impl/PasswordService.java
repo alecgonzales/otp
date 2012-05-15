@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
+import com.onb.otp.domain.OneTimePasswordListBatch;
+import com.onb.otp.persistence.base.OneTimePasswordListBatchDaoBase;
 import com.onb.otp.persistence.base.OneTimePasswordListDaoBase;
 import com.onb.otp.service.base.PasswordServiceBase;
 
@@ -21,6 +23,8 @@ public class PasswordService implements PasswordServiceBase {
 	private static final int LIST_SIZE = 50;
 	@Autowired
 	private OneTimePasswordListDaoBase passwordListDao;
+	@Autowired
+	private OneTimePasswordListBatchDaoBase passwordListBatchDao;
 
 	/**
 	 * Generates a list of one time passwords.
@@ -47,11 +51,15 @@ public class PasswordService implements PasswordServiceBase {
 	 * Generates a batch of password lists.
 	 * @return list of password lists
 	 */
-	public List<OneTimePasswordList> generateBatchPasswordList(Date expiryDate, Integer batchSize) {
-		List<OneTimePasswordList> batchPasswordList = new ArrayList<OneTimePasswordList>();
+	public OneTimePasswordListBatch generateBatchPasswordList(Date expiryDate, Integer batchSize) {
+		OneTimePasswordListBatch batch = new OneTimePasswordListBatch();
+		List<OneTimePasswordList> passwordListBatch = new ArrayList<OneTimePasswordList>();
 		for(int index=0; index<batchSize; index++) {
-			batchPasswordList.add(generatePasswordList(expiryDate));
+			passwordListBatch.add(generatePasswordList(expiryDate));
 		}
-		return batchPasswordList;
+		batch.setPasswordLists(passwordListBatch);
+		batch.setBatchSize(batchSize);
+		passwordListBatchDao.save(batch);
+		return batch;
 	}
 }

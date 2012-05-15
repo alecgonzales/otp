@@ -3,7 +3,6 @@ package com.onb.otp.service.impl;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.onb.otp.domain.OneTimePasswordList;
+import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.service.base.PasswordServiceBase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,7 +30,7 @@ public class PasswordServiceTest {
 	
 	@Test
 	public void generateBatchPasswordList() {
-		List<OneTimePasswordList> batchPasswordList = passwordService.generateBatchPasswordList(new Date(), 10);
+		OneTimePasswordListBatch batchPasswordList = passwordService.generateBatchPasswordList(new Date(), 10);
 		
 		assertNotNull(batchPasswordList);
 	}
