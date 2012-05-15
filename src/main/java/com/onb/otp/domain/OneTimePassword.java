@@ -7,7 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -17,6 +19,7 @@ public class OneTimePassword {
 	@Column(name="id")
 	@GeneratedValue
 	private Long id;
+	
 	
 	@Column(name="code")
 	private String code;
@@ -38,6 +41,7 @@ public class OneTimePassword {
 	public Long getId() {
 		return id;
 	}
+	@XmlTransient
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -45,13 +49,15 @@ public class OneTimePassword {
 		return referenceIndex;
 	}
 
-	@XmlElement(name="index")
+	@XmlAttribute(name="index")
 	public void setReferenceIndex(int referenceIndex) {
 		this.referenceIndex = referenceIndex;
 	}
 	public String getCode() {
 		return code;
 	}
+	
+	@XmlElement
 	public void setCode(String code) {
 		this.code = code;
 	}

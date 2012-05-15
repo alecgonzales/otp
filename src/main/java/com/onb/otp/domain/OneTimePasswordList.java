@@ -1,7 +1,7 @@
 package com.onb.otp.domain;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-@XmlRootElement(name = "one_time_password_list")
+@XmlRootElement(name = "otp-list")
 @Entity
 @Table(name="one_time_password_list")
 public class OneTimePasswordList {
@@ -28,7 +30,7 @@ public class OneTimePasswordList {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "passwordList")
 	@Cascade({CascadeType.SAVE_UPDATE})
-	private Set<OneTimePassword> passwords;
+	private List<OneTimePassword> passwords;
 	
 	@OneToOne
 	private User user;
@@ -42,15 +44,16 @@ public class OneTimePasswordList {
 	public Long getId() {
 		return id;
 	}
-	@XmlElement
+	@XmlAttribute(name="id")
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Set<OneTimePassword> getPasswords() {
+	public List<OneTimePassword> getPasswords() {
 		return passwords;
 	}
-	@XmlElement
-	public void setPasswords(Set<OneTimePassword> passwords) {
+	@XmlElementWrapper(name="sequence")
+	@XmlElement(name="otp")
+	public void setPasswords(List<OneTimePassword> passwords) {
 		this.passwords = passwords;
 	}
 	public User getUser() {
@@ -63,14 +66,14 @@ public class OneTimePasswordList {
 	public Date getExpires() {
 		return expires;
 	}
-	@XmlElement
+	@XmlAttribute(name="expires")
 	public void setExpires(Date expires) {
 		this.expires = expires;
 	}
 	public int getSize() {
 		return size;
 	}
-	@XmlElement
+	@XmlAttribute(name="size")
 	public void setSize(int size) {
 		this.size = size;
 	}
