@@ -2,6 +2,8 @@ package com.onb.otp.service.impl;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +25,12 @@ public class PasswordServiceTest {
 		
 		assertNotNull(passwordList);
 		assertNotNull(passwordList.getPasswords());
+	}
+	
+	@Test
+	public void generateBatchPasswordList() {
+		List<OneTimePasswordList> batchPasswordList = passwordService.generateBatchPasswordList();
+		
+		assertNotNull(batchPasswordList);
 	}
 }

@@ -1,6 +1,8 @@
 package com.onb.otp.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -16,6 +18,7 @@ import com.onb.otp.service.base.PasswordServiceBase;
 public class PasswordService implements PasswordServiceBase {
 	
 	private static final int LIST_SIZE = 50;
+	private static final int BATCH_LIST_SIZE = 10;
 	@Autowired
 	private OneTimePasswordListDaoBase passwordListDao;
 
@@ -37,5 +40,17 @@ public class PasswordService implements PasswordServiceBase {
 			passwords.add(new OneTimePassword(RandomStringUtils.randomAlphanumeric(10)));
 		}
 		return passwords;
+	}
+	
+	/**
+	 * Generates a batch of password lists.
+	 * @return list of password lists
+	 */
+	public List<OneTimePasswordList> generateBatchPasswordList() {
+		List<OneTimePasswordList> batchPasswordList = new ArrayList<OneTimePasswordList>();
+		for(int index=0; index<BATCH_LIST_SIZE; index++) {
+			batchPasswordList.add(generatePasswordList());
+		}
+		return batchPasswordList;
 	}
 }
