@@ -31,24 +31,34 @@ public class PasswordControllerTest {
 	}
 	
 	@Test
-	public void generateOtp() throws HttpRequestMethodNotSupportedException, ParseException {
+	public void generateOtpWithExpiryDate() throws HttpRequestMethodNotSupportedException, ParseException {
 		String expires = "20120101";
 		Date expiryDate = sdf.parse(expires);
 		
 	    when(passwordService.generatePasswordList(expiryDate)).thenReturn(new OneTimePasswordList());
 
-		controller.generateOtp(expires);
+		controller.generateOtpWithExpiryDate(expires);
 	}
 	
 	@Test(expected = HttpRequestMethodNotSupportedException.class)
 	public void generateOtpInvalidExpiryDate() throws HttpRequestMethodNotSupportedException {
 		String expires = "";
 
-		controller.generateOtp(expires);
+		controller.generateOtpWithExpiryDate(expires);
 	}
 	
 	@Test
-	public void generateBatchOtp() throws HttpRequestMethodNotSupportedException, ParseException {
+	public void generateOtpWithMaxAge() throws HttpRequestMethodNotSupportedException, ParseException {
+		String expires = "20120101";
+		Date expiryDate = sdf.parse(expires);
+		
+	    when(passwordService.generatePasswordList(expiryDate)).thenReturn(new OneTimePasswordList());
+
+		controller.generateOtpWithMaxAge(expires);
+	}
+	
+	@Test
+	public void generateBatchOtpWithExpiryDate() throws HttpRequestMethodNotSupportedException, ParseException {
 		String expires = "20120101";
 		Date expiryDate = sdf.parse(expires);
 		String size = "20";
@@ -56,7 +66,7 @@ public class PasswordControllerTest {
 		
 	    when(passwordService.generateBatchPasswordList(expiryDate, batchSize)).thenReturn(new ArrayList<OneTimePasswordList>());
 
-		controller.generateBatchOtp(expires, size);
+		controller.generateBatchOtpWithExpiryDate(expires, size);
 	}
 	
 	@Test(expected = HttpRequestMethodNotSupportedException.class)
@@ -64,7 +74,7 @@ public class PasswordControllerTest {
 		String expires = "";
 		String size = "20";
 
-		controller.generateBatchOtp(expires, size);
+		controller.generateBatchOtpWithExpiryDate(expires, size);
 	}
 	
 	@Test(expected = HttpRequestMethodNotSupportedException.class)
@@ -72,6 +82,18 @@ public class PasswordControllerTest {
 		String expires = "20120101";
 		String size = "AEO";
 
-		controller.generateBatchOtp(expires, size);
+		controller.generateBatchOtpWithExpiryDate(expires, size);
+	}
+	
+	@Test
+	public void generateBatchOtpWithMaxAge() throws HttpRequestMethodNotSupportedException, ParseException {
+		String expires = "20120101";
+		Date expiryDate = sdf.parse(expires);
+		String size = "20";
+		Integer batchSize = Integer.parseInt(size);
+		
+	    when(passwordService.generateBatchPasswordList(expiryDate, batchSize)).thenReturn(new ArrayList<OneTimePasswordList>());
+
+		controller.generateBatchOtpWithMaxAge(expires, size);
 	}
 }

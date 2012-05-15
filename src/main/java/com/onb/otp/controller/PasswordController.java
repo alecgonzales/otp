@@ -24,8 +24,17 @@ public class PasswordController {
 	@Autowired
 	PasswordService passwordService;
 	
-	@RequestMapping(value="/otp-list", method=RequestMethod.POST) 
-	public @ResponseBody OneTimePasswordList generateOtp(@RequestParam("expires") String expires) throws HttpRequestMethodNotSupportedException {
+	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="expires") 
+	public @ResponseBody OneTimePasswordList generateOtpWithExpiryDate(@RequestParam("expires") String expires) throws HttpRequestMethodNotSupportedException {
+		return generateOtp(expires);
+	}
+	
+	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="max-age") 
+	public @ResponseBody OneTimePasswordList generateOtpWithMaxAge(@RequestParam("max-age") String expires) throws HttpRequestMethodNotSupportedException {
+		return generateOtp(expires);
+	}
+	
+	private OneTimePasswordList generateOtp(String expires) throws HttpRequestMethodNotSupportedException {
 		try {
 			Date expiryDate = parseExpiryDate(expires); 
 			return passwordService.generatePasswordList(expiryDate);
@@ -45,8 +54,17 @@ public class PasswordController {
 		return expiryDate;
 	}
 	
-	@RequestMapping(value="/otp-list/_batch", method=RequestMethod.POST) 
-	public @ResponseBody List<OneTimePasswordList> generateBatchOtp(@RequestParam("expires") String expires, @RequestParam("batch-size") String batchSize) throws HttpRequestMethodNotSupportedException {
+	@RequestMapping(value="/otp-list/_batch", method=RequestMethod.POST,  params={"expires", "batch-size"}) 
+	public @ResponseBody List<OneTimePasswordList> generateBatchOtpWithExpiryDate(@RequestParam("expires") String expires, @RequestParam("batch-size") String batchSize) throws HttpRequestMethodNotSupportedException {
+		return generateBatchOtp(expires, batchSize);
+	}
+	
+	@RequestMapping(value="/otp-list/_batch", method=RequestMethod.POST,  params={"max-age", "batch-size"}) 
+	public @ResponseBody List<OneTimePasswordList> generateBatchOtpWithMaxAge(@RequestParam("max-age") String expires, @RequestParam("batch-size") String batchSize) throws HttpRequestMethodNotSupportedException {
+		return generateBatchOtp(expires, batchSize);
+	}
+	
+	private List<OneTimePasswordList> generateBatchOtp(String expires, String batchSize) throws HttpRequestMethodNotSupportedException {
 		try {
 			Date expiryDate = parseExpiryDate(expires);
 			Integer size = Integer.parseInt(batchSize);
