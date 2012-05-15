@@ -2,6 +2,7 @@ package com.onb.otp.service.impl;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class PasswordServiceTest {
 
 	@Test
 	public void generatePasswordList() {
-		OneTimePasswordList passwordList = passwordService.generatePasswordList();
+		OneTimePasswordList passwordList = passwordService.generatePasswordList(new Date());
 		
 		assertNotNull(passwordList);
 		assertNotNull(passwordList.getPasswords());
@@ -29,7 +30,7 @@ public class PasswordServiceTest {
 	
 	@Test
 	public void generateBatchPasswordList() {
-		List<OneTimePasswordList> batchPasswordList = passwordService.generateBatchPasswordList();
+		List<OneTimePasswordList> batchPasswordList = passwordService.generateBatchPasswordList(new Date(), 10);
 		
 		assertNotNull(batchPasswordList);
 	}
