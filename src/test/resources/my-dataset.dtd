@@ -1,9 +1,16 @@
 <!ELEMENT dataset (
+	one_time_password_list_batch*,
 	user*,
     one_time_password_list*,
     one_time_password*
     )>
     
+<!ELEMENT one_time_password_list_batch EMPTY>
+<!ATTLIST one_time_password_list_batch
+	id CDATA #REQUIRED
+	batch_size CDATA #REQUIRED
+>
+
 <!ELEMENT user EMPTY>
 <!ATTLIST user
 	id CDATA #REQUIRED
@@ -13,8 +20,9 @@
 <!ELEMENT one_time_password_list EMPTY>
 <!ATTLIST one_time_password_list
 	id CDATA #REQUIRED
-	user_id CDATA #REQUIRED
+	user_id CDATA #IMPLIED
 	size CDATA #REQUIRED
+	batch_id CDATA #IMPLIED
 >
 
 <!ELEMENT one_time_password EMPTY>
