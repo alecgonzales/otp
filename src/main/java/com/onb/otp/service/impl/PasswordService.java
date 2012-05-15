@@ -36,8 +36,8 @@ public class PasswordService implements PasswordServiceBase {
 	
 	private Set<OneTimePassword> generatePasswords() {
 		Set<OneTimePassword> passwords = new HashSet<OneTimePassword>();
-		for(int index=0; index<LIST_SIZE; index++) {
-			passwords.add(new OneTimePassword(RandomStringUtils.randomAlphanumeric(10)));
+		for(int index=1; index<=LIST_SIZE; index++) {
+			passwords.add(new OneTimePassword(index, RandomStringUtils.randomAlphanumeric(10)));
 		}
 		return passwords;
 	}

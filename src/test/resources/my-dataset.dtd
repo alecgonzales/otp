@@ -21,6 +21,7 @@
 <!ATTLIST one_time_password
 	id CDATA #REQUIRED
 	code  CDATA #REQUIRED
+	reference_index CDATA #REQUIRED
 	password_list_id  CDATA #REQUIRED
 >
 

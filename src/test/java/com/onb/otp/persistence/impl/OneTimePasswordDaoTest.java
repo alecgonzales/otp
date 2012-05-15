@@ -20,7 +20,7 @@ public class OneTimePasswordDaoTest extends DaoTestBase {
 	
 	@Test
 	public void save() {
-		OneTimePassword password = new OneTimePassword("password");
+		OneTimePassword password = new OneTimePassword(1,"password");
 		dao.save(password);
 	}
 	
