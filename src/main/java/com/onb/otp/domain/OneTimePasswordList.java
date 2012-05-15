@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -34,6 +36,10 @@ public class OneTimePasswordList {
 	
 	@OneToOne
 	private User user;
+	
+	@ManyToOne
+    @JoinColumn(name="batch_id")
+    private OneTimePasswordListBatch batch; 
 	
 	@Column(name="expires")
 	private Date expires;
@@ -76,5 +82,11 @@ public class OneTimePasswordList {
 	@XmlAttribute(name="size")
 	public void setSize(int size) {
 		this.size = size;
+	}
+	public OneTimePasswordListBatch getBatch() {
+		return batch;
+	}
+	public void setBatch(OneTimePasswordListBatch batch) {
+		this.batch = batch;
 	}
 }

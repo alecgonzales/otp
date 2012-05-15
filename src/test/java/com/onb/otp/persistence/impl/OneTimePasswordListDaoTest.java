@@ -21,7 +21,6 @@ public class OneTimePasswordListDaoTest extends DaoTestBase {
 	private OneTimePasswordListDaoBase dao;
 	@Autowired
 	private UserDaoBase userDao;
-	@Autowired
 	
 	@Test
 	public void save() {

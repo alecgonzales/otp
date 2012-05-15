@@ -1,11 +1,26 @@
 <!DOCTYPE dataset SYSTEM "src/test/resources/my-dataset.dtd">
 <dataset>
+	<one_time_password_list_batch id="1" batch_size="2" />
+	<one_time_password_list_batch id="2" batch_size="2" />
+
 	<user id="1" username="john" />
 	<user id="2" username="doe" />
 
 	<one_time_password_list id="1" user_id="1" size="2"/>
+	<one_time_password_list id="2" size="2" batch_id="1"/>
+	<one_time_password_list id="3" size="2" batch_id="1"/>
+	<one_time_password_list id="4" size="2"/>
+	<one_time_password_list id="5" size="2"/>
 	
 	<one_time_password id="1" code="1234567890" reference_index="1" password_list_id="1" />
-	<one_time_password id="2" code="2468013579" reference_index="1" password_list_id="1" />
+	<one_time_password id="2" code="2468013579" reference_index="2" password_list_id="1" />
+	<one_time_password id="3" code="ABCDEFGHIJ" reference_index="1" password_list_id="2" />
+	<one_time_password id="4" code="KLMNOPQRST" reference_index="2" password_list_id="2" />
+	<one_time_password id="5" code="1B2D3F4H5J" reference_index="1" password_list_id="3" />
+	<one_time_password id="6" code="6L7N8P9R0T" reference_index="2" password_list_id="3" />
+	<one_time_password id="7" code="A1C2E3G4I5" reference_index="1" password_list_id="4" />
+	<one_time_password id="8" code="K6M7O8Q9S0" reference_index="2" password_list_id="4" />
+	<one_time_password id="9" code="1B3D2F4H5J" reference_index="1" password_list_id="5" />
+	<one_time_password id="10" code="6L4N8P9R0T" reference_index="2" password_list_id="5" />
 	
 </dataset>
