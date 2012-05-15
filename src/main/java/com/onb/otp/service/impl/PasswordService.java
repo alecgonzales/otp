@@ -1,6 +1,7 @@
 package com.onb.otp.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,6 @@ import com.onb.otp.service.base.PasswordServiceBase;
 public class PasswordService implements PasswordServiceBase {
 	
 	private static final int LIST_SIZE = 50;
-	private static final int BATCH_LIST_SIZE = 10;
 	@Autowired
 	private OneTimePasswordListDaoBase passwordListDao;
 
@@ -26,10 +26,11 @@ public class PasswordService implements PasswordServiceBase {
 	 * Generates a list of one time passwords.
 	 * @return list of one time passwords
 	 */
-	public OneTimePasswordList generatePasswordList() {
+	public OneTimePasswordList generatePasswordList(Date expiryDate) {
 		OneTimePasswordList passwordList = new OneTimePasswordList();
 		passwordList.setPasswords(generatePasswords());
 		passwordList.setSize(LIST_SIZE);
+		passwordList.setExpires(expiryDate);
 		passwordListDao.save(passwordList);
 		return passwordList;
 	}
@@ -46,10 +47,10 @@ public class PasswordService implements PasswordServiceBase {
 	 * Generates a batch of password lists.
 	 * @return list of password lists
 	 */
-	public List<OneTimePasswordList> generateBatchPasswordList() {
+	public List<OneTimePasswordList> generateBatchPasswordList(Date expiryDate, Integer batchSize) {
 		List<OneTimePasswordList> batchPasswordList = new ArrayList<OneTimePasswordList>();
-		for(int index=0; index<BATCH_LIST_SIZE; index++) {
-			batchPasswordList.add(generatePasswordList());
+		for(int index=0; index<batchSize; index++) {
+			batchPasswordList.add(generatePasswordList(expiryDate));
 		}
 		return batchPasswordList;
 	}
