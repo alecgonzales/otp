@@ -13,6 +13,7 @@ import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.domain.User;
+import com.onb.otp.exception.OneTimePasswordListNotFreeException;
 import com.onb.otp.persistence.base.OneTimePasswordListBatchDaoBase;
 import com.onb.otp.persistence.base.OneTimePasswordListDaoBase;
 import com.onb.otp.persistence.base.StatusDaoBase;
@@ -75,10 +76,17 @@ public class PasswordService implements PasswordServiceBase {
 	 * Associates an otp list with a user.
 	 * @return associated otp list
 	 */
-	public OneTimePasswordList associateOtpListWithUser(OneTimePasswordList passwordList, User user) {
+	public OneTimePasswordList associateOtpListWithUser(OneTimePasswordList passwordList, User user) throws OneTimePasswordListNotFreeException {
+		validateListIsFree(passwordList);
 		passwordList.setUser(user);
 		passwordList.setStatus(statusDao.getByValue("associated"));
 		passwordListDao.update(passwordList);
 		return passwordList;
+	}
+	
+	private void validateListIsFree(OneTimePasswordList passwordList) throws OneTimePasswordListNotFreeException {
+		if (!passwordList.isFree()) {
+			throw new OneTimePasswordListNotFreeException("Otp list with id " + passwordList.getId() + " is no longer free.");
+		}
 	}
 }
