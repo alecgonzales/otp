@@ -2,7 +2,7 @@
 <dataset>
 	<status id="1" value="free"/>
 	<status id="2" value="associated"/>
-	<status id="3" value="activated"/>
+	<status id="3" value="active"/>
 
 	<one_time_password_list_batch id="1" batch_size="2" />
 	<one_time_password_list_batch id="2" batch_size="2" />
