@@ -45,7 +45,8 @@ public class OneTimePasswordList {
     @JoinColumn(name="batch_id")
     private OneTimePasswordListBatch batch; 
 	
-	@Column(name="status")
+	@ManyToOne
+    @JoinColumn(name="status_id")
 	private Status status;
 	
 	@Column(name="expires")

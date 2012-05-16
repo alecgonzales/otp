@@ -1,16 +1,20 @@
 <!DOCTYPE dataset SYSTEM "src/test/resources/my-dataset.dtd">
 <dataset>
+	<status id="1" value="free"/>
+	<status id="2" value="associated"/>
+	<status id="3" value="activated"/>
+
 	<one_time_password_list_batch id="1" batch_size="2" />
 	<one_time_password_list_batch id="2" batch_size="2" />
 
-	<user id="1" username="john" />
-	<user id="2" username="doe" />
+	<user id="1" username="john" status_id="2" />
+	<user id="2" username="doe" status_id="1" />
 
-	<one_time_password_list id="1" user_id="1" size="2"/>
-	<one_time_password_list id="2" size="2" batch_id="1"/>
-	<one_time_password_list id="3" size="2" batch_id="1"/>
-	<one_time_password_list id="4" size="2"/>
-	<one_time_password_list id="5" size="2"/>
+	<one_time_password_list id="1" user_id="1" size="2" status_id="2"/>
+	<one_time_password_list id="2" size="2" batch_id="1" status_id="1"/>
+	<one_time_password_list id="3" size="2" batch_id="1" status_id="1" />
+	<one_time_password_list id="4" size="2" status_id="1" />
+	<one_time_password_list id="5" size="2" status_id="1" />
 	
 	<one_time_password id="1" code="1234567890" reference_index="1" password_list_id="1" />
 	<one_time_password id="2" code="2468013579" reference_index="2" password_list_id="1" />

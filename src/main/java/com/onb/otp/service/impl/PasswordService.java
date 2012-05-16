@@ -73,7 +73,7 @@ public class PasswordService implements PasswordServiceBase {
 	 */
 	public OneTimePasswordList associateOtpListWithUser(OneTimePasswordList passwordList, User user) {
 		passwordList.setUser(user);
-		passwordList.setStatus("associated");
+//		TODO: passwordList.setStatus("associated");
 		passwordListDao.update(passwordList);
 		return passwordList;
 	}

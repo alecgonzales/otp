@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,10 +28,14 @@ public class User {
 	@Column(name="username")
 	private String username;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private List<OneTimePasswordList> passwordLists;
 	
+	@ManyToOne
+    @JoinColumn(name="status_id")
+    private Status status; 
+
 	public Long getId() {
 		return id;
 	}
@@ -50,5 +56,12 @@ public class User {
 	@XmlTransient
 	public void setPasswordLists(List<OneTimePasswordList> passwordLists) {
 		this.passwordLists = passwordLists;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	@XmlTransient
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }

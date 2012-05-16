@@ -3,14 +3,21 @@ package com.onb.otp.domain;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+@Entity
+@Table(name="status")
 public class Status {
 	@Id
 	@Column(name="id")
@@ -20,18 +27,15 @@ public class Status {
 	@Column(name="value")
 	private String value;
 	
-	@Column(name="index")
-	private String index;
-	
 	@Column(name="remaining")
-	private int remaining;
+	private Integer remaining;
 
-	@ManyToOne
-    @JoinColumn(name="user_id")
-    private List<User> userLists; 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
+	@Cascade({CascadeType.SAVE_UPDATE})
+    private List<User> users; 
 	
-	@ManyToOne
-    @JoinColumn(name="password_list_id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
+	@Cascade({CascadeType.SAVE_UPDATE})
     private List<OneTimePasswordList> passwordLists;
 
 	public Long getId() {
@@ -48,26 +52,19 @@ public class Status {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public String getIndex() {
-		return index;
-	}
-	@XmlAttribute(name="index")
-	public void setIndex(String index) {
-		this.index = index;
-	}
-	public int getRemaining() {
+	public Integer getRemaining() {
 		return remaining;
 	}
 	@XmlAttribute(name="remaining")
-	public void setRemaining(int remaining) {
+	public void setRemaining(Integer remaining) {
 		this.remaining = remaining;
 	}
-	public List<User> getUserLists() {
-		return userLists;
+	public List<User> getUsers() {
+		return users;
 	}
 	@XmlElement
-	public void setUserLists(List<User> userLists) {
-		this.userLists = userLists;
+	public void setUserLists(List<User> users) {
+		this.users = users;
 	}
 	public List<OneTimePasswordList> getPasswordLists() {
 		return passwordLists;
