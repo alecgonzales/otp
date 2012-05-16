@@ -40,4 +40,10 @@ public class StatusDaoTest extends DaoTestBase {
 		Status newStatus = dao.getById(1L);
 		assertEquals("new value", newStatus.getValue());
 	}
+	
+	@Test
+	public void getByValue() {
+        Status status = dao.getByValue("free");
+        assertNotNull(status);
+    }
 }

@@ -29,6 +29,6 @@ public class OneTimePasswordDao extends BaseDao implements OneTimePasswordDaoBas
 
 	@Override
 	public void update(OneTimePassword password) {
-		currentSession().update(password);
+		currentSession().merge(password);
 	}
 }

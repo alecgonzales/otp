@@ -30,6 +30,6 @@ public class UserDao extends BaseDao implements UserDaoBase {
 	
 	@Override
 	public void update(User user) {
-		currentSession().update(user);
+		currentSession().merge(user);
 	}
 }

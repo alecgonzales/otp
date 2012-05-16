@@ -29,6 +29,6 @@ public class OneTimePasswordListBatchDao extends BaseDao implements OneTimePassw
 
 	@Override
 	public void update(OneTimePasswordListBatch passwordListBatch) {
-		currentSession().update(passwordListBatch);
+		currentSession().merge(passwordListBatch);
 	}
 }

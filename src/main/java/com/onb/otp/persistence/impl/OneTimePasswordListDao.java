@@ -29,6 +29,6 @@ public class OneTimePasswordListDao extends BaseDao implements OneTimePasswordLi
 
 	@Override
 	public void update(OneTimePasswordList passwordList) {
-		currentSession().update(passwordList);
+		currentSession().merge(passwordList);
 	}
 }
