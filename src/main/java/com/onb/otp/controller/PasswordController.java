@@ -24,6 +24,7 @@ import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidExpiryDateException;
 import com.onb.otp.exception.InvalidRequestParameterException;
+import com.onb.otp.exception.OneTimePasswordListNotFreeException;
 import com.onb.otp.service.base.PasswordServiceBase;
 
 @Controller
@@ -85,12 +86,18 @@ public class PasswordController {
 	}
 	
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
-	public @ResponseBody OneTimePasswordList associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException {
+	public @ResponseBody OneTimePasswordList associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
 		return passwordService.associateOtpListWithUser(list, user);
 	}
 	
 	@ExceptionHandler(Exception.class)
-	public @ResponseBody ErrorMessage handleException(Throwable ex, HttpServletResponse response) throws IOException {
+	public @ResponseBody ErrorMessage handle403Exception(Throwable ex, HttpServletResponse response) throws IOException {
+		response.setStatus(HttpStatus.FORBIDDEN.value());
+		return new ErrorMessage("403", ex.getMessage());
+	}
+	
+	@ExceptionHandler(InvalidRequestParameterException.class)
+	public @ResponseBody ErrorMessage handle404Exception(Throwable ex, HttpServletResponse response) throws IOException {
 		response.setStatus(HttpStatus.NOT_FOUND.value());
 		return new ErrorMessage("404", ex.getMessage());
 	}
