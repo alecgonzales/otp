@@ -5,15 +5,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -31,14 +28,6 @@ import com.onb.otp.xml.adapter.DateAdapter;
 @Entity
 @Table(name="one_time_password_list")
 public class OneTimePasswordList {
-	public enum Status {
-		FREE, ASSOCIATED, ACTIVE;
-	}
-	
-	public OneTimePasswordList() {
-		this.status = Status.FREE;
-	}
-	
 	@Id
 	@Column(name="id")
 	@GeneratedValue
@@ -48,7 +37,8 @@ public class OneTimePasswordList {
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private List<OneTimePassword> passwords;
 	
-	@OneToOne
+	@ManyToOne
+    @JoinColumn(name="user_id")
 	private User user;
 	
 	@ManyToOne
@@ -56,7 +46,6 @@ public class OneTimePasswordList {
     private OneTimePasswordListBatch batch; 
 	
 	@Column(name="status")
-	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	@Column(name="expires")
@@ -90,7 +79,7 @@ public class OneTimePasswordList {
 	public Status getStatus() {
 		return status;
 	}
-	@XmlAttribute(name="status")
+	@XmlElement(name="status")
 	public void setStatus(Status status) {
 		this.status = status;
 	}
@@ -112,6 +101,7 @@ public class OneTimePasswordList {
 	public OneTimePasswordListBatch getBatch() {
 		return batch;
 	}
+	@XmlTransient
 	public void setBatch(OneTimePasswordListBatch batch) {
 		this.batch = batch;
 	}
