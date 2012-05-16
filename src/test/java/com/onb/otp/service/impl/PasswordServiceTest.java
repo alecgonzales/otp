@@ -67,7 +67,6 @@ public class PasswordServiceTest {
 	
 	@Test
 	public void associateOtpListWithUser() {
-		
 		OneTimePasswordList list = new OneTimePasswordList();
 		User user = new User();
 		Status status = new Status();
