@@ -42,8 +42,10 @@
 							<property name="classesToBeBound">
 								<list>
 									<value>com.onb.otp.domain.ErrorMessage</value>
-									<value>com.onb.otp.datatransferobject.CreateOtpList</value>
-									<value>com.onb.otp.datatransferobject.CreateOtp</value>
+									<value>com.onb.otp.datatransferobject.OtpListForCreate</value>
+									<value>com.onb.otp.datatransferobject.OtpForCreate</value>
+									<value>com.onb.otp.datatransferobject.OtpListForCreateBatch</value>
+									<value>com.onb.otp.datatransferobject.OtpListBatchForCreateBatch</value>
 									<value>com.onb.otp.domain.OneTimePasswordList</value>
 									<value>com.onb.otp.domain.OneTimePasswordListBatch</value>
 								</list>

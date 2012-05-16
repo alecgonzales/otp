@@ -13,12 +13,12 @@ import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
 
 @XmlRootElement(name="otp-list")
-public class CreateOtpList {
+public class OtpListForCreate {
 	private Long id;
 	private Date expires;
 	private int size;
 	
-	List<CreateOtp> otps = new ArrayList<CreateOtp>();
+	List<OtpForCreate> otps = new ArrayList<OtpForCreate>();
 	
 	public Long getId() {
 		return id;
@@ -41,24 +41,24 @@ public class CreateOtpList {
 	public void setSize(int size) {
 		this.size = size;
 	}
-	public List<CreateOtp> getOtps() {
+	public List<OtpForCreate> getOtps() {
 		return otps;
 	}
 	@XmlElementWrapper(name="sequence")
 	@XmlElement(name="otp")
-	public void setOtps(List<CreateOtp> otps) {
+	public void setOtps(List<OtpForCreate> otps) {
 		this.otps = otps;
 	}
 	
-	public CreateOtpList() {
+	public OtpListForCreate() {
 	}
 	
-	public CreateOtpList(OneTimePasswordList passwordList) {
+	public OtpListForCreate(OneTimePasswordList passwordList) {
 		this.id = passwordList.getId();
 		this.expires = passwordList.getExpires();
 		this.size = passwordList.getSize();
 		for (OneTimePassword password : passwordList.getPasswords()) {
-			this.otps.add(new CreateOtp(password));
+			this.otps.add(new OtpForCreate(password));
 		}
 	}
 }

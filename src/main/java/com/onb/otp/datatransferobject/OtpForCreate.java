@@ -1,12 +1,11 @@
 package com.onb.otp.datatransferobject;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 import com.onb.otp.domain.OneTimePassword;
 
-public class CreateOtp {
+public class OtpForCreate {
 	private Integer index;
 	private String value;
 	
@@ -25,10 +24,10 @@ public class CreateOtp {
 		this.value = value;
 	}
 	
-	public CreateOtp() {
+	public OtpForCreate() {
 	}
 	
-	public CreateOtp(OneTimePassword otp) {
+	public OtpForCreate(OneTimePassword otp) {
 		this.index = otp.getReferenceIndex();
 		this.value = otp.getCode();
 	}
