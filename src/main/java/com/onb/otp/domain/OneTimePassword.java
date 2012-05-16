@@ -8,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlValue;
 
 
 @Entity
@@ -56,14 +56,14 @@ public class OneTimePassword {
 	public String getCode() {
 		return code;
 	}
-	
-	@XmlElement
+	@XmlValue
 	public void setCode(String code) {
 		this.code = code;
 	}
 	public OneTimePasswordList getPasswordList() {
 		return passwordList;
 	}
+	@XmlTransient
 	public void setPasswordList(OneTimePasswordList passwordList) {
 		this.passwordList = passwordList;
 	}

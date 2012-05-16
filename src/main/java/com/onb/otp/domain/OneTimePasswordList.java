@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -25,6 +28,14 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @Table(name="one_time_password_list")
 public class OneTimePasswordList {
+	public enum Status {
+		FREE, ASSOCIATED, ACTIVE;
+	}
+	
+	public OneTimePasswordList() {
+		this.status = Status.FREE;
+	}
+	
 	@Id
 	@Column(name="id")
 	@GeneratedValue
@@ -40,6 +51,10 @@ public class OneTimePasswordList {
 	@ManyToOne
     @JoinColumn(name="batch_id")
     private OneTimePasswordListBatch batch; 
+	
+	@Column(name="status")
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@Column(name="expires")
 	private Date expires;
@@ -65,14 +80,21 @@ public class OneTimePasswordList {
 	public User getUser() {
 		return user;
 	}
-	@XmlElement
+	@XmlTransient
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	@XmlAttribute(name="status")
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	public Date getExpires() {
 		return expires;
 	}
-	@XmlAttribute(name="expires")
+	@XmlAttribute(name="expires")	
 	public void setExpires(Date expires) {
 		this.expires = expires;
 	}
