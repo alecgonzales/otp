@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,15 +21,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.onb.otp.domain.ErrorMessage;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
+import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidExpiryDateException;
 import com.onb.otp.exception.InvalidRequestParameterException;
+import com.onb.otp.service.base.PasswordServiceBase;
 import com.onb.otp.service.impl.PasswordService;
 
 @Controller
 public class PasswordController {
 	
 	@Autowired
-	PasswordService passwordService;
+	PasswordServiceBase passwordService;
 	
 	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="expires") 
 	public @ResponseBody OneTimePasswordList generateOtpWithExpiryDate(@RequestParam("expires") String expires) throws InvalidRequestParameterException {
@@ -80,6 +83,11 @@ public class PasswordController {
 		} catch (NumberFormatException e) {
 			throw new InvalidRequestParameterException("Invalid batch-size parameter: " + batchSize + ". Must be a valid integer.");
 		}
+	}
+	
+	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
+	public @ResponseBody OneTimePasswordList associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException {
+		return passwordService.associateOtpListWithUser(list, user);
 	}
 	
 	@ExceptionHandler(Exception.class)
