@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.onb.otp.datatransferobject.CreateOtpList;
+import com.onb.otp.datatransferobject.OtpListBatchForCreateBatch;
+import com.onb.otp.datatransferobject.OtpListForCreate;
 import com.onb.otp.domain.ErrorMessage;
 import com.onb.otp.domain.OneTimePasswordList;
-import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidExpiryDateException;
 import com.onb.otp.exception.InvalidRequestParameterException;
@@ -35,19 +35,19 @@ public class PasswordController {
 	PasswordServiceBase passwordService;
 	
 	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="expires") 
-	public @ResponseBody CreateOtpList generateOtpWithExpiryDate(@RequestParam("expires") String expires) throws InvalidRequestParameterException {
+	public @ResponseBody OtpListForCreate generateOtpWithExpiryDate(@RequestParam("expires") String expires) throws InvalidRequestParameterException {
 		return generateOtp(expires);
 	}
 	
 	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="max-age") 
-	public @ResponseBody CreateOtpList generateOtpWithMaxAge(@RequestParam("max-age") String expires) throws InvalidRequestParameterException {
+	public @ResponseBody OtpListForCreate generateOtpWithMaxAge(@RequestParam("max-age") String expires) throws InvalidRequestParameterException {
 		return generateOtp(expires);
 	}
 	
-	private CreateOtpList generateOtp(String expires) throws InvalidRequestParameterException {
+	private OtpListForCreate generateOtp(String expires) throws InvalidRequestParameterException {
 		try {
 			Date expiryDate = parseExpiryDate(expires); 
-			return new CreateOtpList(passwordService.generatePasswordList(expiryDate));
+			return new OtpListForCreate(passwordService.generatePasswordList(expiryDate));
 		} catch (InvalidExpiryDateException e) {
 			throw new InvalidRequestParameterException("Invalid expiryDate: " + expires + ". Must be in yyyymmdd format.");
 		}
@@ -65,20 +65,20 @@ public class PasswordController {
 	}
 	
 	@RequestMapping(value="/otp-list/_batch", method=RequestMethod.POST,  params={"expires", "batch-size"}) 
-	public @ResponseBody OneTimePasswordListBatch generateBatchOtpWithExpiryDate(@RequestParam("expires") String expires, @RequestParam("batch-size") String batchSize) throws InvalidRequestParameterException {
+	public @ResponseBody OtpListBatchForCreateBatch generateBatchOtpWithExpiryDate(@RequestParam("expires") String expires, @RequestParam("batch-size") String batchSize) throws InvalidRequestParameterException {
 		return generateBatchOtp(expires, batchSize);
 	}
 	
 	@RequestMapping(value="/otp-list/_batch", method=RequestMethod.POST,  params={"max-age", "batch-size"}) 
-	public @ResponseBody OneTimePasswordListBatch generateBatchOtpWithMaxAge(@RequestParam("max-age") String expires, @RequestParam("batch-size") String batchSize) throws InvalidRequestParameterException {
+	public @ResponseBody OtpListBatchForCreateBatch generateBatchOtpWithMaxAge(@RequestParam("max-age") String expires, @RequestParam("batch-size") String batchSize) throws InvalidRequestParameterException {
 		return generateBatchOtp(expires, batchSize);
 	}
 	
-	private OneTimePasswordListBatch generateBatchOtp(String expires, String batchSize) throws InvalidRequestParameterException {
+	private OtpListBatchForCreateBatch generateBatchOtp(String expires, String batchSize) throws InvalidRequestParameterException {
 		try {
 			Date expiryDate = parseExpiryDate(expires);
 			Integer size = Integer.parseInt(batchSize);
-			return passwordService.generateBatchPasswordList(expiryDate, size);
+			return new OtpListBatchForCreateBatch(passwordService.generateBatchPasswordList(expiryDate, size));
 		} catch (InvalidExpiryDateException e) {
 			throw new InvalidRequestParameterException("Invalid expires parameter: " + expires + ". Must be in yyyymmdd format.");
 		} catch (NumberFormatException e) {

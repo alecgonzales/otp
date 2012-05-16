@@ -72,7 +72,10 @@ public class PasswordControllerTest {
 		String size = "20";
 		Integer batchSize = Integer.parseInt(size);
 		
-	    when(passwordService.generateBatchPasswordList(expiryDate, batchSize)).thenReturn(new OneTimePasswordListBatch());
+		OneTimePasswordListBatch batch = new OneTimePasswordListBatch();
+		batch.setPasswordLists(new LinkedHashSet<OneTimePasswordList>());
+		
+	    when(passwordService.generateBatchPasswordList(expiryDate, batchSize)).thenReturn(batch);
 
 		controller.generateBatchOtpWithExpiryDate(expires, size);
 	}
@@ -100,7 +103,10 @@ public class PasswordControllerTest {
 		String size = "20";
 		Integer batchSize = Integer.parseInt(size);
 		
-	    when(passwordService.generateBatchPasswordList(expiryDate, batchSize)).thenReturn(new OneTimePasswordListBatch());
+		OneTimePasswordListBatch batch = new OneTimePasswordListBatch();
+		batch.setPasswordLists(new LinkedHashSet<OneTimePasswordList>());
+		
+	    when(passwordService.generateBatchPasswordList(expiryDate, batchSize)).thenReturn(batch);
 
 		controller.generateBatchOtpWithMaxAge(expires, size);
 	}
