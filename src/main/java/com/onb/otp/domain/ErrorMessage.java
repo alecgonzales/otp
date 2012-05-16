@@ -1,7 +1,9 @@
 package com.onb.otp.domain;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 @XmlRootElement(name = "error")
 public class ErrorMessage {
@@ -19,14 +21,14 @@ public class ErrorMessage {
 	public String getStatus() {
 		return status;
 	}
-	@XmlElement
+	@XmlAttribute(name="status")
 	public void setStatus(String status) {
 		this.status = status;
 	}
 	public String getMessage() {
 		return message;
 	}
-	@XmlElement
+	@XmlValue
 	public void setMessage(String message) {
 		this.message = message;
 	}
