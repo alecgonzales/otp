@@ -44,7 +44,7 @@ public class OneTimePasswordList {
 	@GeneratedValue
 	private Long id;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "passwordList")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "passwordList")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private List<OneTimePassword> passwords;
 	
