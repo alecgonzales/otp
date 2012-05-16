@@ -2,7 +2,9 @@ package com.onb.otp.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +50,8 @@ public class PasswordService implements PasswordServiceBase {
 		return passwordList;
 	}
 	
-	private List<OneTimePassword> generatePasswords() {
-		List<OneTimePassword> passwords = new ArrayList<OneTimePassword>();
+	private Set<OneTimePassword> generatePasswords() {
+		Set<OneTimePassword> passwords = new LinkedHashSet<OneTimePassword>();
 		for(int index=1; index<=LIST_SIZE; index++) {
 			passwords.add(new OneTimePassword(index, RandomStringUtils.randomAlphanumeric(10)));
 		}

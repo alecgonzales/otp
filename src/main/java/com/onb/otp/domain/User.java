@@ -1,6 +1,6 @@
 package com.onb.otp.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cascade;
@@ -28,9 +29,9 @@ public class User {
 	@Column(name="username")
 	private String username;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	@Cascade({CascadeType.SAVE_UPDATE})
-	private List<OneTimePasswordList> passwordLists;
+	private Set<OneTimePasswordList> passwordLists;
 	
 	@ManyToOne
     @JoinColumn(name="status_id")
@@ -50,11 +51,11 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public List<OneTimePasswordList> getPasswordLists() {
+	public Set<OneTimePasswordList> getPasswordLists() {
 		return passwordLists;
 	}
 	@XmlTransient
-	public void setPasswordLists(List<OneTimePasswordList> passwordLists) {
+	public void setPasswordLists(Set<OneTimePasswordList> passwordLists) {
 		this.passwordLists = passwordLists;
 	}
 	public Status getStatus() {

@@ -1,7 +1,7 @@
 package com.onb.otp.domain;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class OneTimePasswordList {
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "passwordList")
 	@Cascade({CascadeType.SAVE_UPDATE})
-	private List<OneTimePassword> passwords;
+	private Set<OneTimePassword> passwords;
 	
 	@ManyToOne
     @JoinColumn(name="user_id")
@@ -61,11 +61,11 @@ public class OneTimePasswordList {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<OneTimePassword> getPasswords() {
+	public Set<OneTimePassword> getPasswords() {
 		return passwords;
 	}
 	@XmlElement(name="otp")
-	public void setPasswords(List<OneTimePassword> passwords) {
+	public void setPasswords(Set<OneTimePassword> passwords) {
 		this.passwords = passwords;
 	}
 	public User getUser() {
