@@ -1,9 +1,7 @@
 package com.onb.otp.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -64,7 +62,7 @@ public class PasswordService implements PasswordServiceBase {
 	 */
 	public OneTimePasswordListBatch generateBatchPasswordList(Date expiryDate, Integer batchSize) {
 		OneTimePasswordListBatch batch = new OneTimePasswordListBatch();
-		List<OneTimePasswordList> passwordListBatch = new ArrayList<OneTimePasswordList>();
+		Set<OneTimePasswordList> passwordListBatch = new LinkedHashSet<OneTimePasswordList>();
 		for(int index=0; index<batchSize; index++) {
 			passwordListBatch.add(generatePasswordList(expiryDate));
 		}

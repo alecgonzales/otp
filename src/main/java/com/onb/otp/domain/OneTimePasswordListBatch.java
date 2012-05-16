@@ -1,6 +1,6 @@
 package com.onb.otp.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +28,7 @@ public class OneTimePasswordListBatch {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "batch")
 	@Cascade({CascadeType.SAVE_UPDATE})
-	private List<OneTimePasswordList> passwordLists;
+	private Set<OneTimePasswordList> passwordLists;
 	
 	@Column(name="batch_size")
 	private int batchSize;
@@ -40,11 +40,11 @@ public class OneTimePasswordListBatch {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<OneTimePasswordList> getPasswordLists() {
+	public Set<OneTimePasswordList> getPasswordLists() {
 		return passwordLists;
 	}
 	@XmlElement(name="otp-list")
-	public void setPasswordLists(List<OneTimePasswordList> passwordLists) {
+	public void setPasswordLists(Set<OneTimePasswordList> passwordLists) {
 		this.passwordLists = passwordLists;
 	}
 	public int getBatchSize() {

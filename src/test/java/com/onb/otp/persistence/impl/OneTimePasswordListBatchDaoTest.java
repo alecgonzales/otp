@@ -3,8 +3,8 @@ package com.onb.otp.persistence.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +43,7 @@ public class OneTimePasswordListBatchDaoTest extends DaoTestBase {
 	public void update() {
 		OneTimePasswordList oneTimePasswordList1 = otpListDao.getById(4L);
 		OneTimePasswordList oneTimePasswordList2 = otpListDao.getById(5L);
-		List<OneTimePasswordList> passwordLists = new ArrayList<OneTimePasswordList>();
+		Set<OneTimePasswordList> passwordLists = new LinkedHashSet<OneTimePasswordList>();
 		passwordLists.add(oneTimePasswordList1);
 		passwordLists.add(oneTimePasswordList2);
 		
