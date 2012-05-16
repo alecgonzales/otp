@@ -8,7 +8,6 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,7 +16,6 @@ import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.domain.User;
 import com.onb.otp.persistence.impl.OneTimePasswordListBatchDao;
 import com.onb.otp.persistence.impl.OneTimePasswordListDao;
-import com.onb.otp.service.base.PasswordServiceBase;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.doNothing;
@@ -65,6 +63,6 @@ public class PasswordServiceTest {
 		OneTimePasswordList passwordList = passwordService.associateOtpListWithUser(list, user);
 		
 		assertEquals(user, passwordList.getUser());
-		assertEquals(OneTimePasswordList.Status.ASSOCIATED, passwordList.getStatus());
+		assertEquals("associated", passwordList.getStatus());
 	}
 }
