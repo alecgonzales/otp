@@ -65,7 +65,6 @@ public class OneTimePasswordList {
 	public List<OneTimePassword> getPasswords() {
 		return passwords;
 	}
-	@XmlElementWrapper(name="sequence")
 	@XmlElement(name="otp")
 	public void setPasswords(List<OneTimePassword> passwords) {
 		this.passwords = passwords;
