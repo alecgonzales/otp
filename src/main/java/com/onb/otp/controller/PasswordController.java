@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.onb.otp.datatransferobject.CreateOtpList;
 import com.onb.otp.domain.ErrorMessage;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
@@ -34,19 +35,19 @@ public class PasswordController {
 	PasswordServiceBase passwordService;
 	
 	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="expires") 
-	public @ResponseBody OneTimePasswordList generateOtpWithExpiryDate(@RequestParam("expires") String expires) throws InvalidRequestParameterException {
+	public @ResponseBody CreateOtpList generateOtpWithExpiryDate(@RequestParam("expires") String expires) throws InvalidRequestParameterException {
 		return generateOtp(expires);
 	}
 	
 	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="max-age") 
-	public @ResponseBody OneTimePasswordList generateOtpWithMaxAge(@RequestParam("max-age") String expires) throws InvalidRequestParameterException {
+	public @ResponseBody CreateOtpList generateOtpWithMaxAge(@RequestParam("max-age") String expires) throws InvalidRequestParameterException {
 		return generateOtp(expires);
 	}
 	
-	private OneTimePasswordList generateOtp(String expires) throws InvalidRequestParameterException {
+	private CreateOtpList generateOtp(String expires) throws InvalidRequestParameterException {
 		try {
 			Date expiryDate = parseExpiryDate(expires); 
-			return passwordService.generatePasswordList(expiryDate);
+			return new CreateOtpList(passwordService.generatePasswordList(expiryDate));
 		} catch (InvalidExpiryDateException e) {
 			throw new InvalidRequestParameterException("Invalid expiryDate: " + expires + ". Must be in yyyymmdd format.");
 		}

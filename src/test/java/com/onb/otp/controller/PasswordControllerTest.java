@@ -4,10 +4,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.exception.InvalidRequestParameterException;
@@ -19,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class PasswordControllerTest {
 	private PasswordController controller;
 	private PasswordService passwordService;
-	private DateFormat sdf = new SimpleDateFormat("yyyymmdd");
+	private DateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	
 	@Before
 	public void setup() {
@@ -35,7 +37,10 @@ public class PasswordControllerTest {
 		String expires = "20120101";
 		Date expiryDate = sdf.parse(expires);
 		
-	    when(passwordService.generatePasswordList(expiryDate)).thenReturn(new OneTimePasswordList());
+		OneTimePasswordList otp = new OneTimePasswordList();
+		otp.setPasswords(new LinkedHashSet<OneTimePassword>());
+		
+	    when(passwordService.generatePasswordList(expiryDate)).thenReturn(otp);
 
 		controller.generateOtpWithExpiryDate(expires);
 	}
@@ -52,7 +57,10 @@ public class PasswordControllerTest {
 		String expires = "20120101";
 		Date expiryDate = sdf.parse(expires);
 		
-	    when(passwordService.generatePasswordList(expiryDate)).thenReturn(new OneTimePasswordList());
+		OneTimePasswordList otp = new OneTimePasswordList();
+		otp.setPasswords(new LinkedHashSet<OneTimePassword>());
+		
+	    when(passwordService.generatePasswordList(expiryDate)).thenReturn(otp);
 
 		controller.generateOtpWithMaxAge(expires);
 	}
