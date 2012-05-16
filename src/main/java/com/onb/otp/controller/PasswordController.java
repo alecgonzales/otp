@@ -51,7 +51,7 @@ public class PasswordController {
 	
 	private Date parseExpiryDate(String expiry) throws InvalidExpiryDateException {
 		Date expiryDate;
-		DateFormat sdf = new SimpleDateFormat("yyyymmdd");
+		DateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		try {
 			expiryDate = sdf.parse(expiry);
 		} catch (ParseException e) {

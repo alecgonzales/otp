@@ -20,9 +20,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+import com.onb.otp.xml.adapter.DateAdapter;
 
 @XmlRootElement(name = "otp-list")
 @Entity
@@ -94,7 +97,8 @@ public class OneTimePasswordList {
 	public Date getExpires() {
 		return expires;
 	}
-	@XmlAttribute(name="expires")	
+	@XmlAttribute(name="expires")
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	public void setExpires(Date expires) {
 		this.expires = expires;
 	}
