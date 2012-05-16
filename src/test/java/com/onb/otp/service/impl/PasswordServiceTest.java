@@ -15,6 +15,7 @@ import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.domain.Status;
 import com.onb.otp.domain.User;
+import com.onb.otp.exception.OneTimePasswordListNotFreeException;
 import com.onb.otp.persistence.impl.OneTimePasswordListBatchDao;
 import com.onb.otp.persistence.impl.OneTimePasswordListDao;
 import com.onb.otp.persistence.impl.StatusDao;
@@ -68,15 +69,29 @@ public class PasswordServiceTest {
 	@Test
 	public void associateOtpListWithUser() {
 		OneTimePasswordList list = new OneTimePasswordList();
+		Status freeStatus = new Status();
+		freeStatus.setValue("free");
+		list.setStatus(freeStatus);
 		User user = new User();
-		Status status = new Status();
-		status.setValue("associated");
+		Status associatedStatus = new Status();
+		associatedStatus.setValue("associated");
 		
 		doNothing().when(passwordListDao).update(list);
-		when(statusDao.getByValue("associated")).thenReturn(status);
+		when(statusDao.getByValue("associated")).thenReturn(associatedStatus);
 		OneTimePasswordList passwordList = passwordService.associateOtpListWithUser(list, user);
 		
 		assertEquals(user, passwordList.getUser());
 		assertEquals("associated", passwordList.getStatus().getValue());
+	}
+	
+	@Test(expected=OneTimePasswordListNotFreeException.class)
+	public void associateOtpListWithUserNotFree() {
+		OneTimePasswordList list = new OneTimePasswordList();
+		Status associatedStatus = new Status();
+		associatedStatus.setValue("associated");
+		list.setStatus(associatedStatus);
+		User user = new User();
+		
+		passwordService.associateOtpListWithUser(list, user);
 	}
 }
