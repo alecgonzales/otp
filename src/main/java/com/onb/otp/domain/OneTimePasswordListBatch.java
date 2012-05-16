@@ -9,13 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-@XmlRootElement(name = "one_time_password_list_batch")
+@XmlRootElement(name = "batch_response")
 @Entity
 @Table(name="one_time_password_list_batch")
 public class OneTimePasswordListBatch {
@@ -34,21 +36,21 @@ public class OneTimePasswordListBatch {
 	public Long getId() {
 		return id;
 	}
-	@XmlElement
+	@XmlTransient
 	public void setId(Long id) {
 		this.id = id;
 	}
 	public List<OneTimePasswordList> getPasswordLists() {
 		return passwordLists;
 	}
-	@XmlElement
+	@XmlElement(name="otp-list")
 	public void setPasswordLists(List<OneTimePasswordList> passwordLists) {
 		this.passwordLists = passwordLists;
 	}
 	public int getBatchSize() {
 		return batchSize;
 	}
-	@XmlElement
+	@XmlAttribute(name="batch-size")
 	public void setBatchSize(int batchSize) {
 		this.batchSize = batchSize;
 	}
