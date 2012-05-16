@@ -25,7 +25,6 @@ import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidExpiryDateException;
 import com.onb.otp.exception.InvalidRequestParameterException;
 import com.onb.otp.service.base.PasswordServiceBase;
-import com.onb.otp.service.impl.PasswordService;
 
 @Controller
 public class PasswordController {
