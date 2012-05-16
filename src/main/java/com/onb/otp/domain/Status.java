@@ -1,6 +1,6 @@
 package com.onb.otp.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,13 +30,13 @@ public class Status {
 	@Column(name="remaining")
 	private Integer remaining;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "status")
 	@Cascade({CascadeType.SAVE_UPDATE})
-    private List<User> users; 
+    private Set<User> users; 
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "status")
 	@Cascade({CascadeType.SAVE_UPDATE})
-    private List<OneTimePasswordList> passwordLists;
+    private Set<OneTimePasswordList> passwordLists;
 
 	public Long getId() {
 		return id;
@@ -59,18 +59,18 @@ public class Status {
 	public void setRemaining(Integer remaining) {
 		this.remaining = remaining;
 	}
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
-	@XmlElement
-	public void setUserLists(List<User> users) {
+	@XmlElement(name="user-info")
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-	public List<OneTimePasswordList> getPasswordLists() {
+	public Set<OneTimePasswordList> getPasswordLists() {
 		return passwordLists;
 	}
 	@XmlTransient
-	public void setPasswordLists(List<OneTimePasswordList> passwordLists) {
+	public void setPasswordLists(Set<OneTimePasswordList> passwordLists) {
 		this.passwordLists = passwordLists;
 	}
 }
