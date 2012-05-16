@@ -104,4 +104,8 @@ public class OneTimePasswordList {
 	public void setBatch(OneTimePasswordListBatch batch) {
 		this.batch = batch;
 	}
+	
+	public boolean isFree() {
+		return "free".equals(this.status.getValue());
+	}
 }
