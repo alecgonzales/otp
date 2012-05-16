@@ -13,11 +13,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
+import com.onb.otp.domain.Status;
 import com.onb.otp.domain.User;
 import com.onb.otp.persistence.impl.OneTimePasswordListBatchDao;
 import com.onb.otp.persistence.impl.OneTimePasswordListDao;
+import com.onb.otp.persistence.impl.StatusDao;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,6 +29,7 @@ public class PasswordServiceTest {
 	private PasswordService passwordService;
 	private OneTimePasswordListDao passwordListDao;
 	private OneTimePasswordListBatchDao passwordListBatchDao;
+	private StatusDao statusDao;
 	
 	@Before
 	public void setup() {
@@ -36,14 +40,22 @@ public class PasswordServiceTest {
 		
 		passwordListBatchDao = mock(OneTimePasswordListBatchDao.class);
 		passwordService.passwordListBatchDao = passwordListBatchDao;
+		
+		statusDao = mock(StatusDao.class);
+		passwordService.statusDao = statusDao;
 	}
 	
 	@Test
 	public void generatePasswordList() {
+		Status status = new Status();
+		status.setValue("free");
+		when(statusDao.getByValue("free")).thenReturn(status);
+		
 		OneTimePasswordList passwordList = passwordService.generatePasswordList(new Date());
 		
 		assertNotNull(passwordList);
 		assertNotNull(passwordList.getPasswords());
+		assertEquals("free", passwordList.getStatus().getValue());
 	}
 	
 	@Test
@@ -58,11 +70,14 @@ public class PasswordServiceTest {
 		
 		OneTimePasswordList list = new OneTimePasswordList();
 		User user = new User();
+		Status status = new Status();
+		status.setValue("associated");
 		
 		doNothing().when(passwordListDao).update(list);
+		when(statusDao.getByValue("associated")).thenReturn(status);
 		OneTimePasswordList passwordList = passwordService.associateOtpListWithUser(list, user);
 		
 		assertEquals(user, passwordList.getUser());
-//		TODO: assertEquals("associated", passwordList.getStatus());
+		assertEquals("associated", passwordList.getStatus().getValue());
 	}
 }

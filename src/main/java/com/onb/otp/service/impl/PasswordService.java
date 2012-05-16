@@ -15,6 +15,7 @@ import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.domain.User;
 import com.onb.otp.persistence.base.OneTimePasswordListBatchDaoBase;
 import com.onb.otp.persistence.base.OneTimePasswordListDaoBase;
+import com.onb.otp.persistence.base.StatusDaoBase;
 import com.onb.otp.persistence.base.UserDaoBase;
 import com.onb.otp.service.base.PasswordServiceBase;
 
@@ -29,6 +30,8 @@ public class PasswordService implements PasswordServiceBase {
 	OneTimePasswordListBatchDaoBase passwordListBatchDao;
 	@Autowired
 	UserDaoBase userDao;
+	@Autowired
+	StatusDaoBase statusDao;
 
 	/**
 	 * Generates a list of one time passwords.
@@ -37,6 +40,7 @@ public class PasswordService implements PasswordServiceBase {
 	public OneTimePasswordList generatePasswordList(Date expiryDate) {
 		OneTimePasswordList passwordList = new OneTimePasswordList();
 		passwordList.setPasswords(generatePasswords());
+		passwordList.setStatus(statusDao.getByValue("free"));
 		passwordList.setSize(LIST_SIZE);
 		passwordList.setExpires(expiryDate);
 		passwordListDao.save(passwordList);
@@ -73,7 +77,7 @@ public class PasswordService implements PasswordServiceBase {
 	 */
 	public OneTimePasswordList associateOtpListWithUser(OneTimePasswordList passwordList, User user) {
 		passwordList.setUser(user);
-//		TODO: passwordList.setStatus("associated");
+		passwordList.setStatus(statusDao.getByValue("associated"));
 		passwordListDao.update(passwordList);
 		return passwordList;
 	}
