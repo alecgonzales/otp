@@ -31,7 +31,6 @@ import com.onb.otp.service.base.PasswordServiceBase;
 
 @Controller
 public class PasswordController {
-	
 	@Autowired
 	PasswordServiceBase passwordService;
 	
