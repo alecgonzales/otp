@@ -71,7 +71,7 @@
 		<property name="packagesToScan" value="com.onb.otp.domain" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 				<prop key="generateDdl">true</prop>
 				<prop key="dialect">org.hibernate.dialect.HSQLDialect</prop>
 			</props>
