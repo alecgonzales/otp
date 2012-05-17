@@ -94,4 +94,13 @@ public class PasswordServiceTest {
 		
 		passwordService.associateOtpListWithUser(list, user);
 	}
+	
+	@Test
+	public void deleteOtpList() {
+		OneTimePasswordList list = new OneTimePasswordList();
+		
+		doNothing().when(passwordListDao).delete(list);
+		
+		passwordService.deleteOtpList(list);
+	}
 }
