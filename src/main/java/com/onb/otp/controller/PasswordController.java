@@ -25,13 +25,16 @@ import com.onb.otp.exception.InvalidExpiryDateException;
 import com.onb.otp.exception.InvalidRequestParameterException;
 import com.onb.otp.exception.OneTimePasswordListNotFreeException;
 import com.onb.otp.service.base.PasswordServiceBase;
+import com.onb.otp.transformer.OtpTransformer;
 
 @Controller
 public class PasswordController extends BaseController {
 	@Autowired
 	PasswordServiceBase passwordService;
+	@Autowired
+	OtpTransformer otpTransformer;
 	
-	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="expires") 
+	@RequestMapping(value="/otp-list", method=RequestMethod.POST, params="expires")
 	public @ResponseBody OtpListForCreate generateOtpWithExpiryDate(@RequestParam("expires") String expires) throws InvalidRequestParameterException {
 		return generateOtp(expires);
 	}
@@ -43,8 +46,9 @@ public class PasswordController extends BaseController {
 	
 	private OtpListForCreate generateOtp(String expires) throws InvalidRequestParameterException {
 		try {
-			Date expiryDate = parseExpiryDate(expires); 
-			return new OtpListForCreate(passwordService.generatePasswordList(expiryDate));
+			Date expiryDate = parseExpiryDate(expires);
+			OneTimePasswordList otps = passwordService.generatePasswordList(expiryDate);
+			return otpTransformer.transformOtpListForCreate(otps);
 		} catch (InvalidExpiryDateException e) {
 			throw new InvalidRequestParameterException("Invalid expiryDate: " + expires + ". Must be in yyyymmdd format.");
 		}
