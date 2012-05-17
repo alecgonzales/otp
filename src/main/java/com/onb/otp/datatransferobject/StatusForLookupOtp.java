@@ -23,11 +23,11 @@ public class StatusForLookupOtp {
 	public void setIndex(String index) {
 		this.index = index;
 	}
-	public int getRemaining() {
+	public Integer getRemaining() {
 		return remaining;
 	}
 	@XmlAttribute
-	public void setRemaining(int remaining) {
+	public void setRemaining(Integer remaining) {
 		this.remaining = remaining;
 	}
 	public UserForLookupOtp getUser() {
