@@ -41,4 +41,10 @@ public class UserDaoTest extends DaoTestBase {
 		User newUser = dao.getById(1L);
 		assertEquals("newuser", newUser.getUsername());
 	}
+	
+	@Test
+	public void getByUsername() {
+        User user = dao.getByUsername("john");
+        assertNotNull(user);
+    }
 }
