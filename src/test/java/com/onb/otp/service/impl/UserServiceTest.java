@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.onb.otp.domain.User;
-import com.onb.otp.exception.InvalidRequestParameterException;
+import com.onb.otp.exception.UserDoesNotExistException;
 import com.onb.otp.persistence.impl.UserDao;
 
 import static org.mockito.Mockito.when;
@@ -35,7 +35,7 @@ public class UserServiceTest {
 		assertEquals(expectedUser, user);
 	}
 	
-	@Test(expected=InvalidRequestParameterException.class)
+	@Test(expected=UserDoesNotExistException.class)
 	public void lookupUserByUsernameInvalidUser() {
 		userService.lookupUserByUsername("blah");
 	}
