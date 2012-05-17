@@ -16,6 +16,7 @@ import com.onb.otp.domain.Status;
 import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidRequestParameterException;
 import com.onb.otp.service.impl.PasswordService;
+import com.onb.otp.transformer.OtpTransformer;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.doNothing;
 public class PasswordControllerTest {
 	private PasswordController controller;
 	private PasswordService passwordService;
+	private OtpTransformer transformer = new OtpTransformer();
 	private DateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	
 	@Before
@@ -33,6 +35,7 @@ public class PasswordControllerTest {
 		passwordService = mock(PasswordService.class);
 		
 		controller.passwordService = passwordService;
+		controller.otpTransformer = transformer;
 	}
 	
 	@Test
