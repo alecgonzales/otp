@@ -93,6 +93,9 @@ public class PasswordService implements PasswordServiceBase {
 		}
 	}
 
+	/**
+	 * Delete an otp list.
+	 */
 	@Override
 	public void deleteOtpList(OneTimePasswordList passwordList) {
 		passwordListDao.delete(passwordList);
