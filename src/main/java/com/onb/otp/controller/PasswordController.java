@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.onb.otp.datatransferobject.OtpListBatchForCreateBatch;
 import com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser;
 import com.onb.otp.datatransferobject.OtpListForCreate;
+import com.onb.otp.datatransferobject.OtpListForLookupOtp;
 import com.onb.otp.domain.ErrorMessage;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.User;
@@ -86,6 +87,11 @@ public class PasswordController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.GET) 
+	public @ResponseBody OtpListForLookupOtp lookUpOtpListStatus(@PathVariable OneTimePasswordList list) {
+		return new OtpListForLookupOtp(list);
+	}
+
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
 	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
 		return new OtpListForAssociateOtpListWithUser(passwordService.associateOtpListWithUser(list, user));

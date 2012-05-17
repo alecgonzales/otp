@@ -44,12 +44,15 @@
 									<value>com.onb.otp.domain.ErrorMessage</value>
 									<value>com.onb.otp.datatransferobject.OtpListForCreate</value>
 									<value>com.onb.otp.datatransferobject.OtpForCreate</value>
+									<value>com.onb.otp.datatransferobject.OtpListForLookupOtp</value>
 									<value>com.onb.otp.datatransferobject.OtpListForCreateBatch</value>
 									<value>com.onb.otp.datatransferobject.OtpListBatchForCreateBatch</value>
 									<value>com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser</value>
+									<value>com.onb.otp.datatransferobject.StatusForLookupOtp</value>
 									<value>com.onb.otp.datatransferobject.StatusForAssociateOtpListWithUser</value>
 									<value>com.onb.otp.datatransferobject.UserForAssociateOtpListWithUser</value>
 									<value>com.onb.otp.datatransferobject.UserForLookupUser</value>
+									<value>com.onb.otp.datatransferobject.UserForLookupOtp</value>
 									<value>com.onb.otp.datatransferobject.OtpListForLookupUser</value>
 									<value>com.onb.otp.datatransferobject.StatusForLookupUser</value>
 								</list>
