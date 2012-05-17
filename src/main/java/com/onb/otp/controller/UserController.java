@@ -17,7 +17,7 @@ public class UserController extends BaseController {
 	UserServiceBase userService;
 	
 	@RequestMapping(value="/user-info/_query", method=RequestMethod.GET, params="uniqueID")
-	public @ResponseBody UserForLookupUser lookupUserWithUsername(@RequestParam String uniqueID) throws InvalidRequestParameterException {
-		return new UserForLookupUser(userService.lookupUserByUsername(uniqueID));
+	public @ResponseBody UserForLookupUser lookupUserWithUsername(@RequestParam("uniqueID") String username) throws InvalidRequestParameterException {
+		return new UserForLookupUser(userService.lookupUserByUsername(username));
 	}
 }
