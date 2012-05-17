@@ -2,6 +2,7 @@ package com.onb.otp.persistence.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,5 +45,15 @@ public class OneTimePasswordListDaoTest extends DaoTestBase {
 		
 		OneTimePasswordList newPasswordList = dao.getById(1L);
 		assertEquals(user.getUsername(), newPasswordList.getUser().getUsername());
+	}
+	
+	@Test
+	public void delete() {
+		OneTimePasswordList passwordList = dao.getById(1L);
+		
+		dao.delete(passwordList);
+		
+		OneTimePasswordList deletedPasswordList = dao.getById(1L);
+		assertNull(deletedPasswordList);
 	}
 }

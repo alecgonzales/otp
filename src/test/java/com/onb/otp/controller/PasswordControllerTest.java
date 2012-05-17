@@ -19,6 +19,7 @@ import com.onb.otp.service.impl.PasswordService;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 public class PasswordControllerTest {
 	private PasswordController controller;
@@ -125,5 +126,14 @@ public class PasswordControllerTest {
 	    when(passwordService.associateOtpListWithUser(list, user)).thenReturn(list);
 	    
 		controller.associateOtpListWithUser(list, user);
+	}
+	
+	@Test
+	public void deleteOtpList() {
+		OneTimePasswordList list = new OneTimePasswordList();
+		
+		doNothing().when(passwordService).deleteOtpList(list);
+		
+		controller.deleteOtpList(list);
 	}
 }

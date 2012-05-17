@@ -6,4 +6,5 @@ public interface OneTimePasswordListDaoBase {
 	public void save(OneTimePasswordList passwordList);
 	public OneTimePasswordList getById(long id);
 	public void update(OneTimePasswordList passwordList);
+	public void delete(OneTimePasswordList passwordList);
 }

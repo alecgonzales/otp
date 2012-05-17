@@ -92,4 +92,9 @@ public class PasswordService implements PasswordServiceBase {
 			throw new OneTimePasswordListNotFreeException("Otp list with id " + passwordList.getId() + " is no longer free.");
 		}
 	}
+
+	@Override
+	public void deleteOtpList(OneTimePasswordList passwordList) {
+		passwordListDao.delete(passwordList);
+	}
 }

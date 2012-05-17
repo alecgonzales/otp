@@ -10,4 +10,5 @@ public interface PasswordServiceBase {
 	public OneTimePasswordList generatePasswordList(Date expires);
 	public OneTimePasswordListBatch generateBatchPasswordList(Date expiryDate, Integer batchSize);
 	public OneTimePasswordList associateOtpListWithUser(OneTimePasswordList passwordList, User user);
+	public void deleteOtpList(OneTimePasswordList passwordList);
 }

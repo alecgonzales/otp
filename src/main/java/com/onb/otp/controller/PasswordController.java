@@ -1,28 +1,24 @@
 package com.onb.otp.controller;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.onb.otp.datatransferobject.OtpListBatchForCreateBatch;
 import com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser;
 import com.onb.otp.datatransferobject.OtpListForCreate;
 import com.onb.otp.datatransferobject.OtpListForLookupOtp;
-import com.onb.otp.domain.ErrorMessage;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidExpiryDateException;
@@ -95,5 +91,11 @@ public class PasswordController extends BaseController {
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
 	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
 		return new OtpListForAssociateOtpListWithUser(passwordService.associateOtpListWithUser(list, user));
+	}
+	
+	@RequestMapping(value="/otp-list/_delete", method=RequestMethod.PUT, params="uniqueID")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteOtpList(@RequestParam("uniqueID") OneTimePasswordList passwordList) {
+		passwordService.deleteOtpList(passwordList);
 	}
 }
