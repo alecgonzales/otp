@@ -10,12 +10,14 @@ import org.junit.Test;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.User;
 import com.onb.otp.service.impl.UserService;
+import com.onb.otp.transformer.UserTransformer;
 
 import static org.mockito.Mockito.when;
 
 public class UserControllerTest {
 	private UserController controller;
 	private UserService userService;
+	private UserTransformer userTrasformer = new UserTransformer();
 	
 	@Before
 	public void setup() {
@@ -24,6 +26,7 @@ public class UserControllerTest {
 		userService = mock(UserService.class);
 		
 		controller.userService = userService;
+		controller.userTransformer = userTrasformer;
 	}
 	
 	@Test
