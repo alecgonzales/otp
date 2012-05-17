@@ -49,6 +49,9 @@
 									<value>com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser</value>
 									<value>com.onb.otp.datatransferobject.StatusForAssociateOtpListWithUser</value>
 									<value>com.onb.otp.datatransferobject.UserForAssociateOtpListWithUser</value>
+									<value>com.onb.otp.datatransferobject.UserForLookupUser</value>
+									<value>com.onb.otp.datatransferobject.OtpListForLookupUser</value>
+									<value>com.onb.otp.datatransferobject.StatusForLookupUser</value>
 								</list>
 							</property>
 						</bean>
