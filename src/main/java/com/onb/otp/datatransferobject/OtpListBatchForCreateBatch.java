@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.onb.otp.domain.OneTimePasswordList;
-import com.onb.otp.domain.OneTimePasswordListBatch;
-
 @XmlRootElement(name="batch-response")
 public class OtpListBatchForCreateBatch {
 	private Integer size;
@@ -29,15 +26,5 @@ public class OtpListBatchForCreateBatch {
 	@XmlElement(name="otp-list")
 	public void setLists(Set<OtpListForCreateBatch> lists) {
 		this.lists = lists;
-	}
-	
-	public OtpListBatchForCreateBatch() {
-	}
-	
-	public OtpListBatchForCreateBatch(OneTimePasswordListBatch batch) {
-		this.size = batch.getBatchSize();
-		for(OneTimePasswordList passwordList : batch.getPasswordLists()) {
-			this.lists.add(new OtpListForCreateBatch(passwordList));
-		}
 	}
 }

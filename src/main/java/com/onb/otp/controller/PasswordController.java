@@ -20,6 +20,7 @@ import com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser;
 import com.onb.otp.datatransferobject.OtpListForCreate;
 import com.onb.otp.datatransferobject.OtpListForLookupOtp;
 import com.onb.otp.domain.OneTimePasswordList;
+import com.onb.otp.domain.OneTimePasswordListBatch;
 import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidExpiryDateException;
 import com.onb.otp.exception.InvalidRequestParameterException;
@@ -79,7 +80,8 @@ public class PasswordController extends BaseController {
 		try {
 			Date expiryDate = parseExpiryDate(expires);
 			Integer size = Integer.parseInt(batchSize);
-			return new OtpListBatchForCreateBatch(passwordService.generateBatchPasswordList(expiryDate, size));
+			OneTimePasswordListBatch otpsBatch = passwordService.generateBatchPasswordList(expiryDate, size);
+			return otpTransformer.transformOtpListBatchForCreate(otpsBatch);
 		} catch (InvalidExpiryDateException e) {
 			throw new InvalidRequestParameterException("Invalid expires parameter: " + expires + ". Must be in yyyymmdd format.");
 		} catch (NumberFormatException e) {
