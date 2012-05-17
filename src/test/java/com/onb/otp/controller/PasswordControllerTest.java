@@ -12,6 +12,8 @@ import org.junit.Test;
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
+import com.onb.otp.domain.Status;
+import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidRequestParameterException;
 import com.onb.otp.service.impl.PasswordService;
 
@@ -109,5 +111,19 @@ public class PasswordControllerTest {
 	    when(passwordService.generateBatchPasswordList(expiryDate, batchSize)).thenReturn(batch);
 
 		controller.generateBatchOtpWithMaxAge(expires, size);
+	}
+	
+	@Test
+	public void associateOtpListWithUser() {
+		User user = new User();
+		
+		OneTimePasswordList list = new OneTimePasswordList();
+		Status status = new Status();
+		list.setStatus(status);
+		list.setUser(user);
+		
+	    when(passwordService.associateOtpListWithUser(list, user)).thenReturn(list);
+	    
+		controller.associateOtpListWithUser(list, user);
 	}
 }
