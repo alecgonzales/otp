@@ -16,6 +16,7 @@ import com.onb.otp.domain.Status;
 import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidRequestParameterException;
 import com.onb.otp.service.impl.PasswordService;
+import com.onb.otp.service.impl.UserService;
 import com.onb.otp.transformer.OtpTransformer;
 
 import static org.mockito.Mockito.mock;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.doNothing;
 public class PasswordControllerTest {
 	private PasswordController controller;
 	private PasswordService passwordService;
+	private UserService userService;
 	private OtpTransformer transformer = new OtpTransformer();
 	private DateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	
@@ -33,8 +35,10 @@ public class PasswordControllerTest {
 		controller = new PasswordController();
 		
 		passwordService = mock(PasswordService.class);
+		userService = mock(UserService.class);
 		
 		controller.passwordService = passwordService;
+		controller.userService = userService;
 		controller.otpTransformer = transformer;
 	}
 	
@@ -120,6 +124,9 @@ public class PasswordControllerTest {
 	@Test
 	public void associateOtpListWithUser() {
 		User user = new User();
+		user.setPasswordLists(new LinkedHashSet<OneTimePasswordList>());
+		
+		when(userService.lookupUserByUsername("user")).thenReturn(user);
 		
 		OneTimePasswordList list = new OneTimePasswordList();
 		Status status = new Status();
@@ -129,7 +136,7 @@ public class PasswordControllerTest {
 		
 	    when(passwordService.associateOtpListWithUser(list, user)).thenReturn(list);
 	    
-		controller.associateOtpListWithUser(list, user);
+		controller.associateOtpListWithUser(list, "user");
 	}
 	
 	@Test

@@ -25,13 +25,17 @@ import com.onb.otp.domain.User;
 import com.onb.otp.exception.InvalidExpiryDateException;
 import com.onb.otp.exception.InvalidRequestParameterException;
 import com.onb.otp.exception.OneTimePasswordListNotFreeException;
+import com.onb.otp.exception.UserDoesNotExistException;
 import com.onb.otp.service.base.PasswordServiceBase;
+import com.onb.otp.service.base.UserServiceBase;
 import com.onb.otp.transformer.OtpTransformer;
 
 @Controller
 public class PasswordController extends BaseController {
 	@Autowired
 	PasswordServiceBase passwordService;
+	@Autowired
+	UserServiceBase userService;
 	@Autowired
 	OtpTransformer otpTransformer;
 	
@@ -98,11 +102,14 @@ public class PasswordController extends BaseController {
 	}
 
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
-	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
+	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") String username) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
 		if(null == list) {
 			throw new InvalidRequestParameterException("Otp list not found.");
 		}
-		if(null == user) {
+		User user = null;
+		try {
+			user = userService.lookupUserByUsername(username);
+		} catch (UserDoesNotExistException e) {
 			throw new InvalidRequestParameterException("User not found.");
 		}
 		OneTimePasswordList otpList = passwordService.associateOtpListWithUser(list, user);
