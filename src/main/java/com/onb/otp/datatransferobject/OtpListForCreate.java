@@ -8,9 +8,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
+import com.onb.otp.xml.adapter.DateAdapter;
 
 @XmlRootElement(name="otp-list")
 public class OtpListForCreate {
@@ -31,6 +33,7 @@ public class OtpListForCreate {
 		return expires;
 	}
 	@XmlAttribute
+	@XmlJavaTypeAdapter(DateAdapter.class)
 	public void setExpires(Date expires) {
 		this.expires = expires;
 	}
