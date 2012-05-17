@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +21,7 @@ import com.onb.otp.service.impl.PasswordService;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 public class PasswordControllerTest {
 	private PasswordController controller;
@@ -125,5 +128,16 @@ public class PasswordControllerTest {
 	    when(passwordService.associateOtpListWithUser(list, user)).thenReturn(list);
 	    
 		controller.associateOtpListWithUser(list, user);
+	}
+	
+	@Test
+	public void deleteOtpList() {
+		OneTimePasswordList list = new OneTimePasswordList();
+		
+		doNothing().when(passwordService).deleteOtpList(list);
+		
+		HttpServletResponse response = mock(HttpServletResponse.class);
+	    
+		controller.deleteOtpList(list, response);
 	}
 }
