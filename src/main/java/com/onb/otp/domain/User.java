@@ -11,9 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -40,28 +37,24 @@ public class User {
 	public Long getId() {
 		return id;
 	}
-	@XmlTransient
 	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getUsername() {
 		return username;
 	}
-	@XmlAttribute(name="uniqueID")
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	public Set<OneTimePasswordList> getPasswordLists() {
 		return passwordLists;
 	}
-	@XmlTransient
 	public void setPasswordLists(Set<OneTimePasswordList> passwordLists) {
 		this.passwordLists = passwordLists;
 	}
 	public Status getStatus() {
 		return status;
 	}
-	@XmlTransient
 	public void setStatus(Status status) {
 		this.status = status;
 	}

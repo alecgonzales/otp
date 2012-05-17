@@ -12,18 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.onb.otp.xml.adapter.DateAdapter;
-
-@XmlRootElement(name = "otp-list")
 @Entity
 @Table(name="one_time_password_list")
 public class OneTimePasswordList {
@@ -57,54 +49,45 @@ public class OneTimePasswordList {
 	public Long getId() {
 		return id;
 	}
-	@XmlAttribute(name="id")
 	public void setId(Long id) {
 		this.id = id;
 	}
 	public Set<OneTimePassword> getPasswords() {
 		return passwords;
 	}
-	@XmlElement(name="otp")
 	public void setPasswords(Set<OneTimePassword> passwords) {
 		this.passwords = passwords;
 	}
 	public User getUser() {
 		return user;
 	}
-	@XmlTransient
 	public void setUser(User user) {
 		this.user = user;
 	}
 	public Status getStatus() {
 		return status;
 	}
-	@XmlElement(name="status")
 	public void setStatus(Status status) {
 		this.status = status;
 	}
 	public Date getExpires() {
 		return expires;
 	}
-	@XmlAttribute(name="expires")
-	@XmlJavaTypeAdapter(DateAdapter.class)
 	public void setExpires(Date expires) {
 		this.expires = expires;
 	}
 	public int getSize() {
 		return size;
 	}
-	@XmlAttribute(name="size")
 	public void setSize(int size) {
 		this.size = size;
 	}
 	public OneTimePasswordListBatch getBatch() {
 		return batch;
 	}
-	@XmlTransient
 	public void setBatch(OneTimePasswordListBatch batch) {
 		this.batch = batch;
 	}
-	
 	public boolean isFree() {
 		return "free".equals(this.status.getValue());
 	}

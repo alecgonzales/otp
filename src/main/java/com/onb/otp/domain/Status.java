@@ -9,9 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -30,6 +27,9 @@ public class Status {
 	@Column(name="remaining")
 	private Integer remaining;
 
+	@Column(name="reference_index")
+	private String referenceIndex;
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "status")
 	@Cascade({CascadeType.SAVE_UPDATE})
     private Set<User> users; 
@@ -41,35 +41,36 @@ public class Status {
 	public Long getId() {
 		return id;
 	}
-	@XmlTransient
 	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getValue() {
 		return value;
 	}
-	@XmlAttribute(name="value")
 	public void setValue(String value) {
 		this.value = value;
 	}
 	public Integer getRemaining() {
 		return remaining;
 	}
-	@XmlAttribute(name="remaining")
 	public void setRemaining(Integer remaining) {
 		this.remaining = remaining;
+	}
+	public String getReferenceIndex() {
+		return referenceIndex;
+	}
+	public void setReferenceIndex(String referenceIndex) {
+		this.referenceIndex = referenceIndex;
 	}
 	public Set<User> getUsers() {
 		return users;
 	}
-	@XmlElement(name="user-info")
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 	public Set<OneTimePasswordList> getPasswordLists() {
 		return passwordLists;
 	}
-	@XmlTransient
 	public void setPasswordLists(Set<OneTimePasswordList> passwordLists) {
 		this.passwordLists = passwordLists;
 	}
