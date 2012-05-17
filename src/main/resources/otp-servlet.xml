@@ -46,8 +46,9 @@
 									<value>com.onb.otp.datatransferobject.OtpForCreate</value>
 									<value>com.onb.otp.datatransferobject.OtpListForCreateBatch</value>
 									<value>com.onb.otp.datatransferobject.OtpListBatchForCreateBatch</value>
-									<value>com.onb.otp.domain.OneTimePasswordList</value>
-									<value>com.onb.otp.domain.OneTimePasswordListBatch</value>
+									<value>com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser</value>
+									<value>com.onb.otp.datatransferobject.StatusForAssociateOtpListWithUser</value>
+									<value>com.onb.otp.datatransferobject.UserForAssociateOtpListWithUser</value>
 								</list>
 							</property>
 						</bean>
