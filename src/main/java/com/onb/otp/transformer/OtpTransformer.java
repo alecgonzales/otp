@@ -82,7 +82,7 @@ public class OtpTransformer {
 		UserForAssociateOtpListWithUser otpUser = new UserForAssociateOtpListWithUser();
 		otpUser.setUniqueID(user.getUsername());
 		
-		Status status = user.getStatus();
+		Status status = passwordList.getStatus();
 		StatusForAssociateOtpListWithUser otpStatus = new StatusForAssociateOtpListWithUser();
 		otpStatus.setIndex(status.getReferenceIndex());
 		otpStatus.setValue(status.getValue());
