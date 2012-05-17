@@ -19,6 +19,11 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<webXml>webapp/WEB-INF/web.xml</webXml>
+					<webResources>
+						<resource>
+							<directory>webapp/errors</directory>
+						</resource>
+					</webResources>
 				</configuration>
 				<version>2.2</version>
 			</plugin>
