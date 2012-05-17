@@ -13,11 +13,7 @@ public class OneTimePasswordListConverter implements Converter<String, OneTimePa
 	
 	@Override
 	public OneTimePasswordList convert(String id) throws InvalidRequestParameterException {
-		OneTimePasswordList passwordList = find(id);
-		if (null == passwordList) {
-			throwException(id);
-		}
-		return passwordList;
+		return find(id);
 	}
 	
 	private OneTimePasswordList find(String id) throws InvalidRequestParameterException {
@@ -25,13 +21,8 @@ public class OneTimePasswordListConverter implements Converter<String, OneTimePa
 		try {
 			passwordList = dao.getById(Long.parseLong(id));
 		} catch (NumberFormatException e) {
-			throwException(id);
+			passwordList = null;
 		}
 		return passwordList;
 	}
-	
-	private void throwException(String id) throws InvalidRequestParameterException {
-		throw new InvalidRequestParameterException("Invalid otp list id: " + id + ".");
-	}
-	
 }

@@ -91,11 +91,20 @@ public class PasswordController extends BaseController {
 	
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.GET) 
 	public @ResponseBody OtpListForLookupOtp lookUpOtpListStatus(@PathVariable OneTimePasswordList list) {
+		if(null == list) {
+			throw new InvalidRequestParameterException("Otp list not found.");
+		}
 		return otpTransformer.transformOtpListForLookupOtp(list);
 	}
 
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
 	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
+		if(null == list) {
+			throw new InvalidRequestParameterException("Otp list not found.");
+		}
+		if(null == user) {
+			throw new InvalidRequestParameterException("User not found.");
+		}
 		OneTimePasswordList otpList = passwordService.associateOtpListWithUser(list, user);
 		return otpTransformer.transformOtpListForAssociateOtpListWithUser(otpList);
 	}

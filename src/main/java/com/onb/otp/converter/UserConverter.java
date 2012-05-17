@@ -13,11 +13,7 @@ public class UserConverter implements Converter<String, User> {
 	
 	@Override
 	public User convert(String id) throws InvalidRequestParameterException {
-		User user = find(id);
-		if (null == user) {
-			throwException(id);
-		}
-		return user;
+		return find(id);
 	}
 	
 	private User find(String id) throws InvalidRequestParameterException {
@@ -25,12 +21,8 @@ public class UserConverter implements Converter<String, User> {
 		try {
 			user = dao.getById(Long.parseLong(id));
 		} catch (NumberFormatException e) {
-			throwException(id);
+			user = null;
 		}
 		return user;
-	}
-	
-	private void throwException(String id) throws InvalidRequestParameterException {
-		throw new InvalidRequestParameterException("Invalid user id: " + id + ".");
 	}
 }
