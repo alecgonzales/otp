@@ -57,15 +57,18 @@ public class OtpTransformer {
 	
 	public OtpListForLookupOtp transformOtpListForLookupOtp(OneTimePasswordList passwordList) {
 		User user = passwordList.getUser();
-		UserForLookupOtp otpUser = new UserForLookupOtp();
-		otpUser.setUniqueID(user.getUsername());
-		
-		Status status = user.getStatus();
+
+		Status status = passwordList.getStatus();
 		StatusForLookupOtp otpStatus = new StatusForLookupOtp();
 		otpStatus.setIndex(status.getReferenceIndex());
 		otpStatus.setRemaining(status.getRemaining());
-		otpStatus.setUser(otpUser);
 		otpStatus.setValue(status.getValue());
+		
+		if (null != user) {
+			UserForLookupOtp otpUser = new UserForLookupOtp();
+			otpUser.setUniqueID(user.getUsername());
+			otpStatus.setUser(otpUser);
+		}
 		
 		OtpListForLookupOtp otpListLookup = new OtpListForLookupOtp();
 		otpListLookup.setId(passwordList.getId());
