@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.onb.otp.datatransferobject.OtpListBatchForCreateBatch;
+import com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser;
 import com.onb.otp.datatransferobject.OtpListForCreate;
 import com.onb.otp.domain.ErrorMessage;
 import com.onb.otp.domain.OneTimePasswordList;
@@ -87,11 +88,11 @@ public class PasswordController {
 	}
 	
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
-	public @ResponseBody OneTimePasswordList associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
-		return passwordService.associateOtpListWithUser(list, user);
+	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
+		return new OtpListForAssociateOtpListWithUser(passwordService.associateOtpListWithUser(list, user));
 	}
 	
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(OneTimePasswordListNotFreeException.class)
 	public @ResponseBody ErrorMessage handle403Exception(Throwable ex, HttpServletResponse response) throws IOException {
 		response.setStatus(HttpStatus.FORBIDDEN.value());
 		return new ErrorMessage("403", ex.getMessage());
