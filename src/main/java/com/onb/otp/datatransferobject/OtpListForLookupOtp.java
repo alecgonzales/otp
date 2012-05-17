@@ -4,8 +4,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.onb.otp.domain.OneTimePasswordList;
-
 @XmlRootElement(name="otp-list")
 public class OtpListForLookupOtp {
 	private Long id;
@@ -24,13 +22,5 @@ public class OtpListForLookupOtp {
 	@XmlElement
 	public void setStatus(StatusForLookupOtp status) {
 		this.status = status;
-	}
-	
-	public OtpListForLookupOtp() {
-	}
-	
-	public OtpListForLookupOtp(OneTimePasswordList passwordList) {
-		this.id = passwordList.getId();
-		this.status = new StatusForLookupOtp(passwordList.getStatus(), passwordList.getUser());
 	}
 }

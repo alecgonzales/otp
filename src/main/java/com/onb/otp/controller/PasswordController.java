@@ -91,7 +91,7 @@ public class PasswordController extends BaseController {
 	
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.GET) 
 	public @ResponseBody OtpListForLookupOtp lookUpOtpListStatus(@PathVariable OneTimePasswordList list) {
-		return new OtpListForLookupOtp(list);
+		return otpTransformer.transformOtpListForLookupOtp(list);
 	}
 
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 

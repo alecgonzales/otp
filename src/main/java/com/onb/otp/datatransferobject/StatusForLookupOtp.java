@@ -3,9 +3,6 @@ package com.onb.otp.datatransferobject;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import com.onb.otp.domain.Status;
-import com.onb.otp.domain.User;
-
 public class StatusForLookupOtp {
 	private String value;
 	private String index;
@@ -39,15 +36,5 @@ public class StatusForLookupOtp {
 	@XmlElement(name="user-info")
 	public void setUser(UserForLookupOtp user) {
 		this.user = user;
-	}
-	
-	public StatusForLookupOtp() {
-	}
-	
-	public StatusForLookupOtp(Status status, User user) {
-		this.value = status.getValue();
-		this.remaining = status.getRemaining();
-		this.index = status.getReferenceIndex();
-		this.user = new UserForLookupOtp(user);
 	}
 }

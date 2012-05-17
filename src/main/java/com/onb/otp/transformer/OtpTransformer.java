@@ -11,9 +11,14 @@ import com.onb.otp.datatransferobject.OtpForCreate;
 import com.onb.otp.datatransferobject.OtpListBatchForCreateBatch;
 import com.onb.otp.datatransferobject.OtpListForCreate;
 import com.onb.otp.datatransferobject.OtpListForCreateBatch;
+import com.onb.otp.datatransferobject.OtpListForLookupOtp;
+import com.onb.otp.datatransferobject.StatusForLookupOtp;
+import com.onb.otp.datatransferobject.UserForLookupOtp;
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
 import com.onb.otp.domain.OneTimePasswordListBatch;
+import com.onb.otp.domain.Status;
+import com.onb.otp.domain.User;
 
 @Service
 public class OtpTransformer {
@@ -45,6 +50,25 @@ public class OtpTransformer {
 		otpBatchList.setSize(batch.getBatchSize());
 		otpBatchList.setLists(otpsBatch);
 		return otpBatchList;
+	}
+	
+	public OtpListForLookupOtp transformOtpListForLookupOtp(OneTimePasswordList passwordList) {
+		User user = passwordList.getUser();
+		UserForLookupOtp otpUser = new UserForLookupOtp();
+		otpUser.setUniqueID(user.getUsername());
+		
+		Status status = user.getStatus();
+		StatusForLookupOtp otpStatus = new StatusForLookupOtp();
+		otpStatus.setIndex(status.getReferenceIndex());
+		otpStatus.setRemaining(status.getRemaining());
+		otpStatus.setUser(otpUser);
+		otpStatus.setValue(status.getValue());
+		
+		OtpListForLookupOtp otpListLookup = new OtpListForLookupOtp();
+		otpListLookup.setId(passwordList.getId());
+		otpListLookup.setStatus(otpStatus);
+		
+		return otpListLookup;
 	}
 	
 }
