@@ -16,7 +16,7 @@ import com.onb.otp.exception.UserDoesNotExistException;
 public abstract class BaseController {
 	@ExceptionHandler(UserDoesNotExistException.class)
 	public @ResponseBody ErrorMessage handle204Success(Throwable ex, HttpServletResponse response) throws IOException {
-		response.setStatus(HttpStatus.OK.value());
+		response.setStatus(HttpStatus.NO_CONTENT.value());
 		return new ErrorMessage("204", ex.getMessage());
 	}
 	
