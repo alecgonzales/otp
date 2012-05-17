@@ -38,6 +38,7 @@ public class PasswordService implements PasswordServiceBase {
 	 * Generates a list of one time passwords.
 	 * @return list of one time passwords
 	 */
+	@Override
 	public OneTimePasswordList generatePasswordList(Date expiryDate) {
 		OneTimePasswordList passwordList = new OneTimePasswordList();
 		passwordList.setPasswords(generatePasswords());
@@ -60,6 +61,7 @@ public class PasswordService implements PasswordServiceBase {
 	 * Generates a batch of password lists.
 	 * @return list of password lists
 	 */
+	@Override
 	public OneTimePasswordListBatch generateBatchPasswordList(Date expiryDate, Integer batchSize) {
 		OneTimePasswordListBatch batch = new OneTimePasswordListBatch();
 		Set<OneTimePasswordList> passwordListBatch = new LinkedHashSet<OneTimePasswordList>();
@@ -76,6 +78,7 @@ public class PasswordService implements PasswordServiceBase {
 	 * Associates an otp list with a user.
 	 * @return associated otp list
 	 */
+	@Override
 	public OneTimePasswordList associateOtpListWithUser(OneTimePasswordList passwordList, User user) throws OneTimePasswordListNotFreeException {
 		validateListIsFree(passwordList);
 		passwordList.setUser(user);
