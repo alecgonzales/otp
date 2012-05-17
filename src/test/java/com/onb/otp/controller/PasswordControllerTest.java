@@ -123,6 +123,7 @@ public class PasswordControllerTest {
 		
 		OneTimePasswordList list = new OneTimePasswordList();
 		Status status = new Status();
+		user.setStatus(status);
 		list.setStatus(status);
 		list.setUser(user);
 		

@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.onb.otp.datatransferobject.OtpForCreate;
 import com.onb.otp.datatransferobject.OtpListBatchForCreateBatch;
+import com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser;
 import com.onb.otp.datatransferobject.OtpListForCreate;
 import com.onb.otp.datatransferobject.OtpListForCreateBatch;
 import com.onb.otp.datatransferobject.OtpListForLookupOtp;
+import com.onb.otp.datatransferobject.StatusForAssociateOtpListWithUser;
 import com.onb.otp.datatransferobject.StatusForLookupOtp;
+import com.onb.otp.datatransferobject.UserForAssociateOtpListWithUser;
 import com.onb.otp.datatransferobject.UserForLookupOtp;
 import com.onb.otp.domain.OneTimePassword;
 import com.onb.otp.domain.OneTimePasswordList;
@@ -71,4 +74,20 @@ public class OtpTransformer {
 		return otpListLookup;
 	}
 	
+	public OtpListForAssociateOtpListWithUser transformOtpListForAssociateOtpListWithUser(OneTimePasswordList passwordList) {
+		User user = passwordList.getUser();
+		UserForAssociateOtpListWithUser otpUser = new UserForAssociateOtpListWithUser();
+		otpUser.setUniqueID(user.getUsername());
+		
+		Status status = user.getStatus();
+		StatusForAssociateOtpListWithUser otpStatus = new StatusForAssociateOtpListWithUser();
+		otpStatus.setIndex(status.getReferenceIndex());
+		otpStatus.setValue(status.getValue());
+		otpStatus.setUser(otpUser);
+		
+		OtpListForAssociateOtpListWithUser otpList = new OtpListForAssociateOtpListWithUser();
+		otpList.setId(passwordList.getId());
+		otpList.setStatus(otpStatus);
+		return otpList;
+	}
 }

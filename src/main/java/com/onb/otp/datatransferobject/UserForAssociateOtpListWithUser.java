@@ -2,8 +2,6 @@ package com.onb.otp.datatransferobject;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import com.onb.otp.domain.User;
-
 public class UserForAssociateOtpListWithUser {
 	private String uniqueID;
 
@@ -13,12 +11,5 @@ public class UserForAssociateOtpListWithUser {
 	@XmlAttribute
 	public void setUniqueID(String uniqueID) {
 		this.uniqueID = uniqueID;
-	}
-	
-	public UserForAssociateOtpListWithUser() {
-	}
-	
-	public UserForAssociateOtpListWithUser(User user) {
-		this.uniqueID = user.getUsername();
 	}
 }

@@ -96,7 +96,8 @@ public class PasswordController extends BaseController {
 
 	@RequestMapping(value="/otp-list/{list}", method=RequestMethod.PUT, params="uniqueID") 
 	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
-		return new OtpListForAssociateOtpListWithUser(passwordService.associateOtpListWithUser(list, user));
+		OneTimePasswordList otpList = passwordService.associateOtpListWithUser(list, user);
+		return otpTransformer.transformOtpListForAssociateOtpListWithUser(otpList);
 	}
 	
 	@RequestMapping(value="/otp-list/_delete", method=RequestMethod.PUT, params="uniqueID")
