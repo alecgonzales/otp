@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -136,8 +134,6 @@ public class PasswordControllerTest {
 		
 		doNothing().when(passwordService).deleteOtpList(list);
 		
-		HttpServletResponse response = mock(HttpServletResponse.class);
-	    
-		controller.deleteOtpList(list, response);
+		controller.deleteOtpList(list);
 	}
 }

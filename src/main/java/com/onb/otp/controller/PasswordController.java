@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.onb.otp.datatransferobject.OtpListBatchForCreateBatch;
 import com.onb.otp.datatransferobject.OtpListForAssociateOtpListWithUser;
@@ -88,9 +87,9 @@ public class PasswordController extends BaseController {
 		return new OtpListForAssociateOtpListWithUser(passwordService.associateOtpListWithUser(list, user));
 	}
 	
-	@RequestMapping(value="/otp-list/_delete", method=RequestMethod.PUT, params="uniqueID") 
-	public void deleteOtpList(@RequestParam("uniqueID") OneTimePasswordList passwordList, HttpServletResponse response) {
+	@RequestMapping(value="/otp-list/_delete", method=RequestMethod.PUT, params="uniqueID")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteOtpList(@RequestParam("uniqueID") OneTimePasswordList passwordList) {
 		passwordService.deleteOtpList(passwordList);
-		response.setStatus(HttpStatus.NO_CONTENT.value());
 	}
 }
