@@ -12,7 +12,7 @@ import com.onb.otp.exception.InvalidRequestParameterException;
 import com.onb.otp.service.base.UserServiceBase;
 
 @Controller
-public class UserController {
+public class UserController extends BaseController {
 	@Autowired
 	UserServiceBase userService;
 	

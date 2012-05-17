@@ -30,7 +30,7 @@ import com.onb.otp.exception.OneTimePasswordListNotFreeException;
 import com.onb.otp.service.base.PasswordServiceBase;
 
 @Controller
-public class PasswordController {
+public class PasswordController extends BaseController {
 	@Autowired
 	PasswordServiceBase passwordService;
 	
@@ -90,17 +90,4 @@ public class PasswordController {
 	public @ResponseBody OtpListForAssociateOtpListWithUser associateOtpListWithUser(@PathVariable OneTimePasswordList list, @RequestParam("uniqueID") User user) throws InvalidRequestParameterException, OneTimePasswordListNotFreeException {
 		return new OtpListForAssociateOtpListWithUser(passwordService.associateOtpListWithUser(list, user));
 	}
-	
-	@ExceptionHandler(OneTimePasswordListNotFreeException.class)
-	public @ResponseBody ErrorMessage handle403Exception(Throwable ex, HttpServletResponse response) throws IOException {
-		response.setStatus(HttpStatus.FORBIDDEN.value());
-		return new ErrorMessage("403", ex.getMessage());
-	}
-	
-	@ExceptionHandler(InvalidRequestParameterException.class)
-	public @ResponseBody ErrorMessage handle404Exception(Throwable ex, HttpServletResponse response) throws IOException {
-		response.setStatus(HttpStatus.NOT_FOUND.value());
-		return new ErrorMessage("404", ex.getMessage());
-	}
-	
 }
